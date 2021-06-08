@@ -1,0 +1,7 @@
+version: 2.0
+name: PrizeCommands
+author: MetallicGoat
+main: me.metallicgoat.PrizeCommands.Main
+api-version: 1.13
+description: PrizeCommands for MBedwars
+depend: [MBedwars]

@@ -1,0 +1,16 @@
+#Use %player% to get the player's name
+#Use %victim% to get the victim's name NOTE: This placeholder will not work for events without a victim
+#Please Note Commands are run as console, NOT as player
+bed-break-prize:
+  - 'say %player% Broke a Bed!'
+kill-prize:
+  - 'say %player% killed %victim% - Standard Kill'
+final-kill-prize:
+  - 'say %player% killed %victim% - Final Kill'
+start-message:
+  enabled: false
+  message:
+    - '&e----------------------------'
+    - '&aPrizeCommands for MBedwars'
+    - '&bBy: MetallicGoat'
+    - '&e----------------------------'

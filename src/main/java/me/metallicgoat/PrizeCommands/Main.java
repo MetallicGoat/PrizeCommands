@@ -20,6 +20,8 @@ public class Main extends JavaPlugin {
     private final List<String> bedBreakPrize = getConfig().getStringList("bed-break-prize");
     private final List<String> killPrize = getConfig().getStringList("kill-prize");
     private final List<String> finalKillPrize = getConfig().getStringList("final-kill-prize");
+    private final List<String> winPrize = getConfig().getStringList("win-prize");
+    private final List<String> losePrize = getConfig().getStringList("lose-prize");
     private final List<String> startMessage = getConfig().getStringList("start-message.enabled");
 
     public void onEnable() {
@@ -64,6 +66,14 @@ public class Main extends JavaPlugin {
 
     public List<String> getFinalKillPrize() {
         return finalKillPrize;
+    }
+
+    public List<String> getWinPrize() {
+        return winPrize;
+    }
+
+    public List<String> getLosePrize() {
+        return losePrize;
     }
 
     public List<String> getStartMessage() {

@@ -7,6 +7,11 @@ kill-prize:
   - 'say %player% killed %victim% - Standard Kill'
 final-kill-prize:
   - 'say %player% killed %victim% - Final Kill'
+win-prize:
+  - 'say %player% is a winner'
+lose-prize:
+  - 'say %player% lost this game'
+
 start-message:
   enabled: false
   message:

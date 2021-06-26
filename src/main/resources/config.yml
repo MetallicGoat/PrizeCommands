@@ -8,10 +8,11 @@ kill-prize:
 final-kill-prize:
   - 'say %player% killed %victim% - Final Kill'
 win-prize:
-  - 'say %player% is a winner'
+  - ''
 lose-prize:
-  - 'say %player% lost this game'
+  - ''
 
+#Message displayed on round start
 start-message:
   enabled: false
   message:

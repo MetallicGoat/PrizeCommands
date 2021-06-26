@@ -23,7 +23,7 @@ public class KillPrize implements Listener {
             if(e.getEntity().getKiller() != null){
                 Player p = e.getEntity().getKiller();
                 String name = p.getName();
-                if(!arena.isBedDestroyed(team)) {
+                if(arena.isBedDestroyed(team)) {
                     for (String command : plugin.getFinalKillPrize()) {
                         if (command != null) {
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
@@ -31,7 +31,7 @@ public class KillPrize implements Listener {
                                     .replace("%player%", name));
                         }
                     }
-                }else{
+                }else if(!arena.isBedDestroyed(team)){
                     for (String command : plugin.getKillPrize()) {
                         if (command != null) {
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command

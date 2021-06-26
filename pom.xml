@@ -6,7 +6,7 @@
 
     <groupId>me.metallicgoat</groupId>
     <artifactId>PrizeCommands</artifactId>
-    <version>v2.1-Beta</version>
+    <version>v2.1-Beta2</version>
 
     <build>
         <plugins>

@@ -3,6 +3,7 @@ package me.metallicgoat.PrizeCommands;
 import me.metallicgoat.PrizeCommands.Events.BedBreakPrize;
 import me.metallicgoat.PrizeCommands.Events.KillPrize;
 import me.metallicgoat.PrizeCommands.Events.StartMessage;
+import me.metallicgoat.PrizeCommands.Events.Winners;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.command.ConsoleCommandSender;
@@ -10,6 +11,9 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main extends JavaPlugin {
@@ -25,9 +29,13 @@ public class Main extends JavaPlugin {
     private final List<String> startMessage = getConfig().getStringList("start-message.enabled");
 
     public void onEnable() {
+        loadConfig();
         registerEvents();
         instance = this;
         PluginDescriptionFile pdf = this.getDescription();
+
+        int pluginId = 11774;
+        Metrics metrics = new Metrics(this, pluginId);
 
         log(
                 "------------------------------",
@@ -46,6 +54,7 @@ public class Main extends JavaPlugin {
         manager.registerEvents(new BedBreakPrize(), this);
         manager.registerEvents(new KillPrize(), this); //Kill & Final Kill
         manager.registerEvents(new StartMessage(), this);
+        manager.registerEvents(new Winners(), this);
     }
 
     public static Main getInstance() {
@@ -78,6 +87,19 @@ public class Main extends JavaPlugin {
 
     public List<String> getStartMessage() {
         return startMessage;
+    }
+
+    private void loadConfig(){
+        saveDefaultConfig();
+        File configFile = new File(getDataFolder(), "config.yml");
+
+        try {
+            ConfigUpdater.update(this, "config.yml", configFile, Arrays.asList("Nothing", "here"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        reloadConfig();
     }
 
     private void log(String ...args) {

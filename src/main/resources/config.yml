@@ -12,7 +12,19 @@ win-prize:
 lose-prize:
   - ''
 
+#interval in ticks (20 tics in 1 sec) (2 min = 2400 ticks)
+#Placeholders %player%
+playtime-prize:
+  enabled: false
+  interval: 2400
+  message:
+    - '&6+25 Bed Wars Experience (Time Played)'
+    - '&b+15 coins! (Time Played)'
+  commands:
+    - ''
+
 #Message displayed on round start
+#!!!This feature will be removed shortly, as it is built into MBedwars!!!
 start-message:
   enabled: false
   message:

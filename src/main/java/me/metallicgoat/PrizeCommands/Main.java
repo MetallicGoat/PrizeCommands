@@ -1,9 +1,6 @@
 package me.metallicgoat.PrizeCommands;
 
-import me.metallicgoat.PrizeCommands.Events.BedBreakPrize;
-import me.metallicgoat.PrizeCommands.Events.KillPrize;
-import me.metallicgoat.PrizeCommands.Events.StartMessage;
-import me.metallicgoat.PrizeCommands.Events.Winners;
+import me.metallicgoat.PrizeCommands.Events.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.command.ConsoleCommandSender;
@@ -26,7 +23,9 @@ public class Main extends JavaPlugin {
     private final List<String> finalKillPrize = getConfig().getStringList("final-kill-prize");
     private final List<String> winPrize = getConfig().getStringList("win-prize");
     private final List<String> losePrize = getConfig().getStringList("lose-prize");
-    private final List<String> startMessage = getConfig().getStringList("start-message.enabled");
+    private final List<String> playtimeMessages = getConfig().getStringList("playtime-prize.message");
+    private final List<String> playtimeCommands = getConfig().getStringList("playtime-prize.commands");
+    private final List<String> startMessage = getConfig().getStringList("start-message.message");
 
     public void onEnable() {
         loadConfig();
@@ -54,6 +53,7 @@ public class Main extends JavaPlugin {
         manager.registerEvents(new BedBreakPrize(), this);
         manager.registerEvents(new KillPrize(), this); //Kill & Final Kill
         manager.registerEvents(new StartMessage(), this);
+        manager.registerEvents(new PlayTime(), this);
         manager.registerEvents(new Winners(), this);
     }
 
@@ -87,6 +87,14 @@ public class Main extends JavaPlugin {
 
     public List<String> getStartMessage() {
         return startMessage;
+    }
+
+    public List<String> getPlaytimeMessages() {
+        return playtimeMessages;
+    }
+
+    public List<String> getPlaytimeCommands() {
+        return playtimeCommands;
     }
 
     private void loadConfig(){

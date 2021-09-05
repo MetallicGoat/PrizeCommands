@@ -17,7 +17,9 @@ public class PlayTime implements Listener {
     public void gameStart(RoundStartEvent e){
         Main plugin = Main.getInstance();
         Arena a = e.getArena();
-        schedulePrize(plugin, a);
+        if(plugin.getConfig().getBoolean("playtime-prize.enabled")) {
+            schedulePrize(plugin, a);
+        }
     }
 
     private void schedulePrize(Main plugin, Arena a){
@@ -31,7 +33,7 @@ public class PlayTime implements Listener {
             for(Player p:a.getPlayers()){
                 String name = p.getName();
                 for (String command : plugin.getPlaytimeCommands()) {
-                    if (command != null) {
+                    if (command != null && !command.equals("")) {
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", name));
                     }
                 }

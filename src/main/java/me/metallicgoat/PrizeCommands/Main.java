@@ -21,11 +21,10 @@ public class Main extends JavaPlugin {
     private final List<String> bedBreakPrize = getConfig().getStringList("bed-break-prize");
     private final List<String> killPrize = getConfig().getStringList("kill-prize");
     private final List<String> finalKillPrize = getConfig().getStringList("final-kill-prize");
-    private final List<String> winPrize = getConfig().getStringList("win-prize");
-    private final List<String> losePrize = getConfig().getStringList("lose-prize");
+    private final List<String> winPrize = getConfig().getStringList("end-game-prizes.win-prize");
+    private final List<String> losePrize = getConfig().getStringList("end-game-prizes.lose-prize");
     private final List<String> playtimeMessages = getConfig().getStringList("playtime-prize.message");
     private final List<String> playtimeCommands = getConfig().getStringList("playtime-prize.commands");
-    private final List<String> startMessage = getConfig().getStringList("start-message.message");
 
     public void onEnable() {
         loadConfig();
@@ -52,9 +51,8 @@ public class Main extends JavaPlugin {
         PluginManager manager = this.server.getPluginManager();
         manager.registerEvents(new BedBreakPrize(), this);
         manager.registerEvents(new KillPrize(), this); //Kill & Final Kill
-        manager.registerEvents(new StartMessage(), this);
         manager.registerEvents(new PlayTime(), this);
-        manager.registerEvents(new Winners(), this);
+        manager.registerEvents(new EndGame(), this);
     }
 
     public static Main getInstance() {
@@ -83,10 +81,6 @@ public class Main extends JavaPlugin {
 
     public List<String> getLosePrize() {
         return losePrize;
-    }
-
-    public List<String> getStartMessage() {
-        return startMessage;
     }
 
     public List<String> getPlaytimeMessages() {

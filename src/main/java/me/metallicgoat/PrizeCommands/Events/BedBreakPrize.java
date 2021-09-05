@@ -12,10 +12,12 @@ public class BedBreakPrize implements Listener {
     public void onBedDestroy(ArenaBedBreakEvent e){
         Main plugin = Main.getInstance();
         Player p = e.getPlayer();
-        String name = p.getName();
-        for (String command : plugin.getBedBreakPrize()) {
-            if (command != null) {
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", name));
+        if(p != null) {
+            String name = p.getName();
+            for (String command : plugin.getBedBreakPrize()) {
+                if (command != null && !command.equals("")) {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", name));
+                }
             }
         }
     }

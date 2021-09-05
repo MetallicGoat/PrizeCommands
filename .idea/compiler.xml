@@ -9,5 +9,11 @@
         <module name="PrizeCommands" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="4.0" target="8" />
+      <module name="5.0" target="8" />
+      <module name="Core" target="8" />
+      <module name="Plugin" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

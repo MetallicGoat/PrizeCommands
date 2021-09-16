@@ -20,6 +20,7 @@
             </plugin>
         </plugins>
     </build>
+
     <repositories>
         <repository>
             <id>spigot-repo</id>
@@ -41,7 +42,7 @@
         <dependency>
             <groupId>de.marcely.bedwars</groupId>
             <artifactId>API</artifactId>
-            <version>5.0-Beta4</version>
+            <version>5.0-Beta7</version>
         </dependency>
     </dependencies>
 

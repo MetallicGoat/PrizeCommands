@@ -18,9 +18,14 @@ public class Main extends JavaPlugin {
     private static Main instance;
     private final ConsoleCommandSender console = Bukkit.getConsoleSender();
     private final Server server = getServer();
-    private final List<String> bedBreakPrize = getConfig().getStringList("bed-break-prize");
-    private final List<String> killPrize = getConfig().getStringList("kill-prize");
-    private final List<String> finalKillPrize = getConfig().getStringList("final-kill-prize");
+    private final List<String> bedBreakPrize = getConfig().getStringList("bed-break-prize.commands");
+    private final List<String> killPrize = getConfig().getStringList("kill-prize.commands");
+    private final List<String> finalKillPrize = getConfig().getStringList("final-kill-prize.commands");
+
+    private final List<String> bedBreakPrizeBroadcast = getConfig().getStringList("bed-break-prize.broadcast");
+    private final List<String> killPrizeBroadcast = getConfig().getStringList("kill-prize.broadcast");
+    private final List<String> finalKillPrizeBroadcast = getConfig().getStringList("final-kill-prize.broadcast");
+
     private final List<String> winPrize = getConfig().getStringList("end-game-prizes.win-prize");
     private final List<String> losePrize = getConfig().getStringList("end-game-prizes.lose-prize");
     private final List<String> playtimeMessages = getConfig().getStringList("playtime-prize.message");
@@ -73,6 +78,18 @@ public class Main extends JavaPlugin {
 
     public List<String> getFinalKillPrize() {
         return finalKillPrize;
+    }
+
+    public List<String> getBedBreakPrizeBroadcast() {
+        return bedBreakPrizeBroadcast;
+    }
+
+    public List<String> getKillPrizeBroadcast() {
+        return killPrizeBroadcast;
+    }
+
+    public List<String> getFinalKillPrizeBroadcast() {
+        return finalKillPrizeBroadcast;
     }
 
     public List<String> getWinPrize() {

@@ -4,6 +4,7 @@ import de.marcely.bedwars.api.BedwarsAPI;
 import de.marcely.bedwars.api.arena.Arena;
 import de.marcely.bedwars.api.arena.Team;
 import me.metallicgoat.PrizeCommands.Main;
+import me.metallicgoat.PrizeCommands.SendBroadcast;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,6 +25,7 @@ public class KillPrize implements Listener {
                 Player p = e.getEntity().getKiller();
                 String name = p.getName();
                 if(arena.isBedDestroyed(team)) {
+                    SendBroadcast.broadcastKill(arena, plugin.getFinalKillPrizeBroadcast(), e);
                     for (String command : plugin.getFinalKillPrize()) {
                         if (command != null && !command.equals("")) {
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
@@ -32,6 +34,7 @@ public class KillPrize implements Listener {
                         }
                     }
                 }else if(!arena.isBedDestroyed(team)){
+                    SendBroadcast.broadcastKill(arena, plugin.getKillPrizeBroadcast(), e);
                     for (String command : plugin.getKillPrize()) {
                         if (command != null && !command.equals("")) {
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command

@@ -21,8 +21,8 @@ public class SendBroadcast {
                 if (s != null) {
                     assert p != null;
                     arena.broadcast(Message.build(s).placeholder("player", p.getDisplayName())
-                            .placeholder("player-team", arena.getPlayerTeam(p).getDisplayName())
-                            .placeholder("victim-team", e.getTeam().getDisplayName()));
+                            .placeholder("player-team", "&" + arena.getPlayerTeam(p).getChatColor().getChar() + arena.getPlayerTeam(p).getDisplayName())
+                            .placeholder("victim-team", "&" + e.getTeam().getChatColor().getChar() + e.getTeam().getDisplayName()));
                 }
             });
         }
@@ -39,10 +39,10 @@ public class SendBroadcast {
             message.forEach(s -> {
                 if (s != null) {
                     assert p != null;
-                    arena.broadcast(Message.build(s).placeholder("killer", p.getDisplayName())
+                    arena.broadcast(Message.build(s).placeholder("killer", k.getDisplayName())
                             .placeholder("victim", p.getDisplayName())
-                            .placeholder("killler-team", arena.getPlayerTeam(k).getDisplayName())
-                            .placeholder("victim-team", arena.getPlayerTeam(p).getDisplayName()));
+                            .placeholder("killer-team", "&" + arena.getPlayerTeam(k).getChatColor().getChar() + arena.getPlayerTeam(k).getDisplayName())
+                            .placeholder("victim-team", "&" + arena.getPlayerTeam(p).getChatColor().getChar() + arena.getPlayerTeam(p).getDisplayName()));
                 }
             });
         }

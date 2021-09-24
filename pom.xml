@@ -6,8 +6,7 @@
 
     <groupId>me.metallicgoat</groupId>
     <artifactId>PrizeCommands</artifactId>
-    <version>v2.1-Beta5</version>
-
+    <version>v2.1-Beta6</version>
     <build>
         <plugins>
             <plugin>
@@ -45,5 +44,8 @@
             <version>5.0-Beta7</version>
         </dependency>
     </dependencies>
-
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
 </project>

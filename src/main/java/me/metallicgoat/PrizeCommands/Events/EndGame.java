@@ -14,6 +14,7 @@ import org.bukkit.event.Listener;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 public class EndGame implements Listener {
 
@@ -58,23 +59,13 @@ public class EndGame implements Listener {
             String arenaName = arena.getDisplayName();
             for(Player player:activePlayers){
                 String name = player.getName();
-                if (e.getWinners().contains(player)) {
-                    for (String command : plugin().getConfig().getStringList("end-game-prizes.win-prize")) {
-                        if (command != null && !command.equals("")) {
-                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
-                                    .replace("%player%", name)
-                                    .replace("%arena-name%", arenaName)
-                            );
-                        }
-                    }
-                } else {
-                    for (String command : plugin().getConfig().getStringList("end-game-prizes.lose-prize")) {
-                        if (command != null && !command.equals("")) {
-                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
-                                    .replace("%player%", name)
-                                    .replace("%arena-name%", arenaName)
-                            );
-                        }
+                List<String> endPrize = e.getWinners().contains(player) ? plugin().getConfig().getStringList("end-game-prizes.win-prize") : plugin().getConfig().getStringList("end-game-prizes.lose-prize");
+                for (String command : endPrize) {
+                    if (command != null && !command.equals("")) {
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
+                                .replace("%player%", name)
+                                .replace("%arena-name%", arenaName)
+                        );
                     }
                 }
             }

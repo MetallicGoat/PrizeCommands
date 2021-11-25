@@ -3,8 +3,8 @@ package me.metallicgoat.PrizeCommands.Events;
 import de.marcely.bedwars.api.BedwarsAPI;
 import de.marcely.bedwars.api.arena.Arena;
 import de.marcely.bedwars.api.arena.Team;
+import de.marcely.bedwars.api.message.Message;
 import me.metallicgoat.PrizeCommands.Main;
-import me.metallicgoat.PrizeCommands.SendBroadcast;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,12 +27,29 @@ public class KillPrize implements Listener {
             List<String> killPrize = arena.isBedDestroyed(team) ? plugin.getConfig().getStringList("final-kill-prize.commands"):plugin.getConfig().getStringList("kill-prize.commands");
             List<String> killBroadcast = arena.isBedDestroyed(team) ? plugin.getConfig().getStringList("final-kill-prize.broadcast"):plugin.getConfig().getStringList("kill-prize.broadcast");
 
-            SendBroadcast.broadcastKill(arena, killBroadcast, killer, victim, killerTeam ,team);
+            broadcastKill(arena, killBroadcast, killer, victim, killerTeam ,team);
             for (String command : killPrize) {
                 if (command != null && !command.equals("")) {
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
                             .replace("%victim%", victim.getName())
                             .replace("%player%", killer.getName()));
+                }
+            }
+        }
+    }
+    private static void broadcastKill(Arena arena, List<String> message, Player killer, Player victim, Team killerTeam, Team team){
+        if(message != null) {
+            if(message.size() == 1){
+                if (message.get(0).equals("")) {
+                    return;
+                }
+            }
+            for(String s:message){
+                if (s != null) {
+                    arena.broadcast(Message.build(s).placeholder("killer", killer.getDisplayName())
+                            .placeholder("victim", victim.getDisplayName())
+                            .placeholder("killer-team", "&" + killerTeam.getChatColor().getChar() + killerTeam.getDisplayName())
+                            .placeholder("victim-team", "&" + team.getChatColor().getChar() + team.getDisplayName()));
                 }
             }
         }

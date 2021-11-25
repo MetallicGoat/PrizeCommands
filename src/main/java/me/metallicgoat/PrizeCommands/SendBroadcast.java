@@ -17,7 +17,7 @@ public class SendBroadcast {
             }
             for(String s:message){
                 if (s != null) {
-                    arena.broadcast(Message.build(s).placeholder("killer", killerTeam.getDisplayName())
+                    arena.broadcast(Message.build(s).placeholder("killer", killer.getDisplayName())
                             .placeholder("victim", victim.getDisplayName())
                             .placeholder("killer-team", "&" + killerTeam.getChatColor().getChar() + killerTeam.getDisplayName())
                             .placeholder("victim-team", "&" + team.getChatColor().getChar() + team.getDisplayName()));

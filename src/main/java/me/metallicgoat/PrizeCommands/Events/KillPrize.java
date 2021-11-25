@@ -11,37 +11,28 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
+import java.util.List;
+
 public class KillPrize implements Listener {
 
     @EventHandler
     public void onFinalKill(PlayerDeathEvent e){
         Main plugin = Main.getInstance();
-        Player v = e.getEntity();
-        String vname = v.getName();
-        Arena arena = BedwarsAPI.getGameAPI().getArenaByPlayer(v);
-        if (arena != null){
-            Team team = arena.getPlayerTeam(v);
-            if(e.getEntity().getKiller() != null){
-                Player p = e.getEntity().getKiller();
-                String name = p.getName();
-                if(arena.isBedDestroyed(team)) {
-                    SendBroadcast.broadcastKill(arena, plugin.getConfig().getStringList("final-kill-prize.broadcast"), e);
-                    for (String command : plugin.getConfig().getStringList("final-kill-prize.commands")) {
-                        if (command != null && !command.equals("")) {
-                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
-                                    .replace("%victim%", vname)
-                                    .replace("%player%", name));
-                        }
-                    }
-                }else if(!arena.isBedDestroyed(team)){
-                    SendBroadcast.broadcastKill(arena, plugin.getConfig().getStringList("kill-prize.broadcast"), e);
-                    for (String command : plugin.getConfig().getStringList("final-kill-prize.commands")) {
-                        if (command != null && !command.equals("")) {
-                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
-                                    .replace("%victim%", vname)
-                                    .replace("%player%", name));
-                        }
-                    }
+        Player victim = e.getEntity();
+        Arena arena = BedwarsAPI.getGameAPI().getArenaByPlayer(victim);
+        if (arena != null && e.getEntity().getKiller() != null){
+            Player killer = e.getEntity().getKiller();
+            Team team = arena.getPlayerTeam(victim);
+            Team killerTeam = arena.getPlayerTeam(killer);
+            List<String> killPrize = arena.isBedDestroyed(team) ? plugin.getConfig().getStringList("final-kill-prize.commands"):plugin.getConfig().getStringList("kill-prize.commands");
+            List<String> killBroadcast = arena.isBedDestroyed(team) ? plugin.getConfig().getStringList("final-kill-prize.broadcast"):plugin.getConfig().getStringList("kill-prize.broadcast");
+
+            SendBroadcast.broadcastKill(arena, killBroadcast, killer, victim, killerTeam ,team);
+            for (String command : killPrize) {
+                if (command != null && !command.equals("")) {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
+                            .replace("%victim%", victim.getName())
+                            .replace("%player%", killer.getName()));
                 }
             }
         }

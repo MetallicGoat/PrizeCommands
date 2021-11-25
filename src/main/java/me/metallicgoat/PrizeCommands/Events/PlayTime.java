@@ -7,11 +7,9 @@ import de.marcely.bedwars.api.event.arena.RoundStartEvent;
 import de.marcely.bedwars.api.message.Message;
 import me.metallicgoat.PrizeCommands.Main;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
 
 public class PlayTime implements Listener {

@@ -60,7 +60,7 @@ public class EndGame implements Listener {
             String arenaName = arena.getDisplayName();
             for(Player player:activePlayers){
                 String name = player.getName();
-                List<String> endPrize = e.getWinners().contains(player) ? plugin().getConfig().getStringList("end-game-prizes.win-prize") : plugin().getConfig().getStringList("end-game-prizes.lose-prize");
+                List<String> endPrize = e.getWinners().contains(player) ? plugin().getConfig().getStringList("end-game-prizes.win-prize") : plugin().getConfig().getStringList("end-game-prizes.loose-prize");
                 for (String command : endPrize) {
                     if (command != null && !command.equals("")) {
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), Message.build(command)

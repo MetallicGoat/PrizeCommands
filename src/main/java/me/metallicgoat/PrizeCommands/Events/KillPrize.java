@@ -31,8 +31,8 @@ public class KillPrize implements Listener {
             for (String command : killPrize) {
                 if (command != null && !command.equals("")) {
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), Message.build(command)
+                            .placeholder("killer", killer.getName())
                             .placeholder("victim", victim.getName())
-                            .placeholder("player", killer.getName())
                             .done());
                 }
             }

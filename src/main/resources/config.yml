@@ -1,37 +1,39 @@
-#Use %player% to get the player's name
-#Use %victim% to get the victim's name NOTE: This placeholder will not work for events without a victim
 #Please Note Commands are run as console, NOT as player
+
+# {destroyer} - get the destroyer's name
 bed-break-prize:
   commands:
-    - 'say %player% Broke a Bed!'
-    - 'say The victim placeholder will not work for this prize command'
+    - ''
+
+# {killer} - player's name - command & broadcast
+# {victim} - victim's name - command & broadcast
+# {killer-team} - killer's team - broadcast only
+# {victim-team} - victim's team - broadcast only
 kill-prize:
   commands:
-    - 'say %player% killed %victim% - Standard Kill'
-    - 'say A message without a placeholder'
+    - ''
   broadcast:
-    - '{killer} {victim} {killer-team} {victim-team}'
+    - ''
 final-kill-prize:
   comammnds:
-    - 'say %player% killed %victim% - Final Kill'
-    - 'say A message without a placeholder'
+    - ''
   broadcast:
-    - '{killer} {victim} {killer-team} {victim-team}'
+    - ''
 
 
-#By default players will get a lose prize if they have played for at least 2 min
+#By default, players will get a loose prize if they have played for at least 2 min
 #No matter if they are still in the arena or not
 #Prize commands are run once the game has finished
-#Placeholders: %player% %arena-name%
+# {player} {arena-name}
 end-game-prizes:
   minimum-time: 2
   win-prize:
     - ''
-  lose-prize:
+  loose-prize:
     - ''
 
 #Interval in ticks (20 tics in 1 sec) (2 min = 2400 ticks)
-#Placeholders: %player%
+# {player}
 playtime-prize:
   enabled: false
   interval: 2400

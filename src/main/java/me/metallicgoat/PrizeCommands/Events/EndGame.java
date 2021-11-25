@@ -4,59 +4,62 @@ import de.marcely.bedwars.api.arena.Arena;
 import de.marcely.bedwars.api.arena.ArenaStatus;
 import de.marcely.bedwars.api.event.arena.RoundEndEvent;
 import de.marcely.bedwars.api.event.arena.RoundStartEvent;
+import de.marcely.bedwars.api.event.player.PlayerQuitArenaEvent;
+import de.marcely.bedwars.api.event.player.PlayerRejoinArenaEvent;
 import me.metallicgoat.PrizeCommands.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.scheduler.BukkitScheduler;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 public class EndGame implements Listener {
 
-    private final HashMap<Arena, Player> playing = new HashMap<>();
-    private final HashMap<Arena, Player> clearPlaying = new HashMap<>();
+    private final HashMap<Arena, Collection<Player>> playing = new HashMap<>();
+    private final long time = plugin().getConfig().getLong("end-game-prizes.minimum-time") * 1000;
 
+    //Add players to map on round start
     @EventHandler
     public void onGameStart(RoundStartEvent e){
-        Main plugin = Main.getInstance();
-
-        BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-
         final Arena arena = e.getArena();
-        final long time = plugin.getConfig().getLong("end-game-prizes.minimum-time") * 1200;
+        playing.put(arena, arena.getPlayers());
+    }
 
-        for(Player p: arena.getPlayers()){
-            playing.put(arena, p);
-        }
-
-        if(time != 0) {
-            scheduler.runTaskLater(plugin, () -> {
-                if(arena.getStatus() == ArenaStatus.RUNNING) {
-                    playing.forEach((arena1, player) -> {
-                        if (arena1 == arena) {
-                            if (!player.isOnline() || !arena.isInside(player.getLocation())) {
-                                clearPlaying.remove(arena, player);
-                            }
-                        }
-                    });
-                }
-                cleanMaps();
-            }, time);
+    //remove player from map on leave if playing less than time
+    @EventHandler
+    public void onLeaveArena(PlayerQuitArenaEvent e){
+        final Arena arena = e.getArena();
+        if(arena.getStatus() == ArenaStatus.RUNNING && arena.getRunningTime() <= time){
+            Collection<Player> activePlayers = playing.get(arena);
+            activePlayers.remove(e.getPlayer());
+            playing.replace(arena, activePlayers);
         }
     }
 
+    //Add players back if they rejoin
+    @EventHandler
+    public void onRejoin(PlayerRejoinArenaEvent e){
+        Arena arena = e.getArena();
+        if(e.getIssues().isEmpty()){
+            Collection<Player> activePlayers = playing.get(arena);
+            activePlayers.add(e.getPlayer());
+            playing.replace(arena, activePlayers);
+        }
+    }
+
+    //Run commands on game end
     @EventHandler
     public void onGameEnd(RoundEndEvent e){
-        Main plugin = Main.getInstance();
-
-        playing.forEach((arena, player) -> {
-            if(arena == e.getArena()){
+        Arena arena = e.getArena();
+        Collection<Player> activePlayers = playing.get(arena);
+        if(activePlayers != null && time < arena.getRunningTime()) {
+            String arenaName = arena.getDisplayName();
+            for(Player player:activePlayers){
                 String name = player.getName();
-                String arenaName = arena.getDisplayName();
-                if(e.getWinners().contains(player)){
-                    for (String command : plugin.getWinPrize()) {
+                if (e.getWinners().contains(player)) {
+                    for (String command : plugin().getWinPrize()) {
                         if (command != null && !command.equals("")) {
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
                                     .replace("%player%", name)
@@ -64,8 +67,8 @@ public class EndGame implements Listener {
                             );
                         }
                     }
-                }else{
-                    for (String command : plugin.getLosePrize()) {
+                } else {
+                    for (String command : plugin().getLosePrize()) {
                         if (command != null && !command.equals("")) {
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
                                     .replace("%player%", name)
@@ -74,13 +77,11 @@ public class EndGame implements Listener {
                         }
                     }
                 }
-                clearPlaying.remove(arena, player);
             }
-        });
-        cleanMaps();
+        }
+        playing.remove(arena);
     }
-    private void cleanMaps(){
-        clearPlaying.forEach((playing::remove));
-        clearPlaying.clear();
+    private static Main plugin(){
+        return Main.getInstance();
     }
 }

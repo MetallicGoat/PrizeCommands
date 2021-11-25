@@ -1,5 +1,6 @@
 package me.metallicgoat.PrizeCommands;
 
+import me.metallicgoat.PrizeCommands.ConfigUpdater.ConfigUpdater;
 import me.metallicgoat.PrizeCommands.Events.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;

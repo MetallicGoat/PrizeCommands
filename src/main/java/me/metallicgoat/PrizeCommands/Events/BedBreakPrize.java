@@ -14,9 +14,9 @@ public class BedBreakPrize implements Listener {
         Main plugin = Main.getInstance();
         Player p = e.getPlayer();
         if(p != null) {
-            SendBroadcast.broadcastBedBreak(e.getArena(), plugin.getBedBreakPrizeBroadcast(), e);
+            SendBroadcast.broadcastBedBreak(e.getArena(), plugin.getConfig().getStringList("bed-break-prize.broadcast"), e);
             String name = p.getName();
-            for (String command : plugin.getBedBreakPrize()) {
+            for (String command : plugin.getConfig().getStringList("bed-break-prize.commands")) {
                 if (command != null && !command.equals("")) {
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", name));
                 }

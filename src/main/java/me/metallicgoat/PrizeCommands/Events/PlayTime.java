@@ -32,12 +32,12 @@ public class PlayTime implements Listener {
         if(a.getStatus() == ArenaStatus.RUNNING) {
             for(Player p:a.getPlayers()){
                 String name = p.getName();
-                for (String command : plugin.getPlaytimeCommands()) {
+                for (String command : plugin.getConfig().getStringList("playtime-prize.commands")) {
                     if (command != null && !command.equals("")) {
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", name));
                     }
                 }
-                for (String msg : plugin.getPlaytimeMessages()) {
+                for (String msg : plugin.getConfig().getStringList("playtime-prize.message")) {
                     String translatedMessage = msg.replace("%player%", name);
                     String formattedMessage = ChatColor.translateAlternateColorCodes('&', translatedMessage);
                     p.sendMessage(formattedMessage);

@@ -59,7 +59,7 @@ public class EndGame implements Listener {
             for(Player player:activePlayers){
                 String name = player.getName();
                 if (e.getWinners().contains(player)) {
-                    for (String command : plugin().getWinPrize()) {
+                    for (String command : plugin().getConfig().getStringList("end-game-prizes.win-prize")) {
                         if (command != null && !command.equals("")) {
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
                                     .replace("%player%", name)
@@ -68,7 +68,7 @@ public class EndGame implements Listener {
                         }
                     }
                 } else {
-                    for (String command : plugin().getLosePrize()) {
+                    for (String command : plugin().getConfig().getStringList("end-game-prizes.lose-prize")) {
                         if (command != null && !command.equals("")) {
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
                                     .replace("%player%", name)

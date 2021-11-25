@@ -25,8 +25,8 @@ public class KillPrize implements Listener {
                 Player p = e.getEntity().getKiller();
                 String name = p.getName();
                 if(arena.isBedDestroyed(team)) {
-                    SendBroadcast.broadcastKill(arena, plugin.getFinalKillPrizeBroadcast(), e);
-                    for (String command : plugin.getFinalKillPrize()) {
+                    SendBroadcast.broadcastKill(arena, plugin.getConfig().getStringList("final-kill-prize.broadcast"), e);
+                    for (String command : plugin.getConfig().getStringList("final-kill-prize.commands")) {
                         if (command != null && !command.equals("")) {
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
                                     .replace("%victim%", vname)
@@ -34,8 +34,8 @@ public class KillPrize implements Listener {
                         }
                     }
                 }else if(!arena.isBedDestroyed(team)){
-                    SendBroadcast.broadcastKill(arena, plugin.getKillPrizeBroadcast(), e);
-                    for (String command : plugin.getKillPrize()) {
+                    SendBroadcast.broadcastKill(arena, plugin.getConfig().getStringList("kill-prize.broadcast"), e);
+                    for (String command : plugin.getConfig().getStringList("final-kill-prize.commands")) {
                         if (command != null && !command.equals("")) {
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
                                     .replace("%victim%", vname)

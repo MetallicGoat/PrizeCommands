@@ -6,6 +6,7 @@ import de.marcely.bedwars.api.event.arena.RoundEndEvent;
 import de.marcely.bedwars.api.event.arena.RoundStartEvent;
 import de.marcely.bedwars.api.event.player.PlayerQuitArenaEvent;
 import de.marcely.bedwars.api.event.player.PlayerRejoinArenaEvent;
+import de.marcely.bedwars.api.message.Message;
 import me.metallicgoat.PrizeCommands.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -62,10 +63,10 @@ public class EndGame implements Listener {
                 List<String> endPrize = e.getWinners().contains(player) ? plugin().getConfig().getStringList("end-game-prizes.win-prize") : plugin().getConfig().getStringList("end-game-prizes.lose-prize");
                 for (String command : endPrize) {
                     if (command != null && !command.equals("")) {
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
-                                .replace("%player%", name)
-                                .replace("%arena-name%", arenaName)
-                        );
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), Message.build(command)
+                                .placeholder("player", name)
+                                .placeholder("arena-name", arenaName)
+                                .done());
                     }
                 }
             }

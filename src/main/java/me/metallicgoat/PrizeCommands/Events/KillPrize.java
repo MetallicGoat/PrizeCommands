@@ -30,9 +30,10 @@ public class KillPrize implements Listener {
             broadcastKill(arena, killBroadcast, killer, victim, killerTeam ,team);
             for (String command : killPrize) {
                 if (command != null && !command.equals("")) {
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
-                            .replace("%victim%", victim.getName())
-                            .replace("%player%", killer.getName()));
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), Message.build(command)
+                            .placeholder("victim", victim.getName())
+                            .placeholder("player", killer.getName())
+                            .done());
                 }
             }
         }

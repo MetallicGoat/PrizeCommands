@@ -31,7 +31,8 @@ public class PlayTime implements Listener {
                         String displayName = BedwarsAPI.getHelper().getPlayerDisplayName(p);
                         for (String command : plugin.getConfig().getStringList("playtime-prize.commands")) {
                             if (command != null && !command.equals("")) {
-                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", regularName));
+                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
+                                        Message.build(command).placeholder("player", regularName).done());
                             }
                         }
                         for (String msg : plugin.getConfig().getStringList("playtime-prize.message")) {

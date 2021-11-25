@@ -1,6 +1,7 @@
 package me.metallicgoat.PrizeCommands.Events;
 
 import de.marcely.bedwars.api.event.arena.ArenaBedBreakEvent;
+import de.marcely.bedwars.api.message.Message;
 import me.metallicgoat.PrizeCommands.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -16,7 +17,7 @@ public class BedBreakPrize implements Listener {
             String name = p.getName();
             for (String command : plugin.getConfig().getStringList("bed-break-prize.commands")) {
                 if (command != null && !command.equals("")) {
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", name));
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), Message.build(command).placeholder("%player%", name).done());
                 }
             }
         }

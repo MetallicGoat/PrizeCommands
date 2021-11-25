@@ -10,40 +10,37 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.scheduler.BukkitTask;
 
 public class PlayTime implements Listener {
+
+    private BukkitTask task;
 
     @EventHandler
     public void gameStart(RoundStartEvent e){
         Main plugin = Main.getInstance();
         Arena a = e.getArena();
         if(plugin.getConfig().getBoolean("playtime-prize.enabled")) {
-            schedulePrize(plugin, a);
-        }
-    }
-
-    private void schedulePrize(Main plugin, Arena a){
-        BukkitScheduler scheduler = plugin.getServer().getScheduler();
-        long time = plugin.getConfig().getLong("playtime-prize.interval");
-        scheduler.scheduleSyncDelayedTask(plugin, () -> givePrize(plugin, a), time);
-    }
-
-    private void givePrize(Main plugin, Arena a){
-        if(a.getStatus() == ArenaStatus.RUNNING) {
-            for(Player p:a.getPlayers()){
-                String name = p.getName();
-                for (String command : plugin.getConfig().getStringList("playtime-prize.commands")) {
-                    if (command != null && !command.equals("")) {
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", name));
+            long time = plugin.getConfig().getLong("playtime-prize.interval");
+            task = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+                if(a.getStatus() == ArenaStatus.RUNNING) {
+                    for(Player p:a.getPlayers()){
+                        String name = p.getName();
+                        for (String command : plugin.getConfig().getStringList("playtime-prize.commands")) {
+                            if (command != null && !command.equals("")) {
+                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", name));
+                            }
+                        }
+                        for (String msg : plugin.getConfig().getStringList("playtime-prize.message")) {
+                            String translatedMessage = msg.replace("%player%", name);
+                            String formattedMessage = ChatColor.translateAlternateColorCodes('&', translatedMessage);
+                            p.sendMessage(formattedMessage);
+                        }
                     }
+                }else{
+                    task.cancel();
                 }
-                for (String msg : plugin.getConfig().getStringList("playtime-prize.message")) {
-                    String translatedMessage = msg.replace("%player%", name);
-                    String formattedMessage = ChatColor.translateAlternateColorCodes('&', translatedMessage);
-                    p.sendMessage(formattedMessage);
-                }
-            }
-            schedulePrize(plugin, a);
+            }, time, time);
         }
     }
 }

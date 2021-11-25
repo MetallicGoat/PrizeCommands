@@ -5,8 +5,6 @@ bed-break-prize:
   commands:
     - 'say %player% Broke a Bed!'
     - 'say The victim placeholder will not work for this prize command'
-  broadcast:
-    - '{player} {player-team} {victim-team}'
 kill-prize:
   commands:
     - 'say %player% killed %victim% - Standard Kill'

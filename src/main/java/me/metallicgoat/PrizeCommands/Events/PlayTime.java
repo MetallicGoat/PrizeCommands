@@ -1,8 +1,10 @@
 package me.metallicgoat.PrizeCommands.Events;
 
+import de.marcely.bedwars.api.BedwarsAPI;
 import de.marcely.bedwars.api.arena.Arena;
 import de.marcely.bedwars.api.arena.ArenaStatus;
 import de.marcely.bedwars.api.event.arena.RoundStartEvent;
+import de.marcely.bedwars.api.message.Message;
 import me.metallicgoat.PrizeCommands.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -25,16 +27,16 @@ public class PlayTime implements Listener {
             task = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
                 if(a.getStatus() == ArenaStatus.RUNNING) {
                     for(Player p:a.getPlayers()){
-                        String name = p.getName();
+                        String regularName = p.getName();
+                        String displayName = BedwarsAPI.getHelper().getPlayerDisplayName(p);
                         for (String command : plugin.getConfig().getStringList("playtime-prize.commands")) {
                             if (command != null && !command.equals("")) {
-                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", name));
+                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", regularName));
                             }
                         }
                         for (String msg : plugin.getConfig().getStringList("playtime-prize.message")) {
-                            String translatedMessage = msg.replace("%player%", name);
-                            String formattedMessage = ChatColor.translateAlternateColorCodes('&', translatedMessage);
-                            p.sendMessage(formattedMessage);
+                            String formatted = Message.build(msg).placeholder("player", displayName).done();
+                            p.sendMessage(formatted);
                         }
                     }
                 }else{

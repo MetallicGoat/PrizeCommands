@@ -46,8 +46,8 @@ public class KillPrize implements Listener {
             }
             for(String s:message){
                 if (s != null) {
-                    arena.broadcast(Message.build(s).placeholder("killer", killer.getDisplayName())
-                            .placeholder("victim", victim.getDisplayName())
+                    arena.broadcast(Message.build(s).placeholder("killer", BedwarsAPI.getHelper().getPlayerDisplayName(killer))
+                            .placeholder("victim", BedwarsAPI.getHelper().getPlayerDisplayName(victim))
                             .placeholder("killer-team", "&" + killerTeam.getChatColor().getChar() + killerTeam.getDisplayName())
                             .placeholder("victim-team", "&" + team.getChatColor().getChar() + team.getDisplayName()));
                 }

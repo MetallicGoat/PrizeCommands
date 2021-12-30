@@ -10,19 +10,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.HashMap;
 
 public class Main extends JavaPlugin {
 
     private static Main instance;
 
     private final Server server = getServer();
-
-    //First String: permission, 2nd String: Command
-    public static HashMap<String, String> bedbreakprizes = new HashMap<String, String>();
-    public static HashMap<String, String> endgameprizes = new HashMap<String, String>();
-    public static HashMap<String, String> killprizes = new HashMap<String, String>();
-    public static HashMap<String, String> playtimeprizes = new HashMap<String, String>();
 
     public void onEnable() {
         loadConfig();
@@ -43,14 +36,6 @@ public class Main extends JavaPlugin {
 
         getConfig().options().copyDefaults();
         saveDefaultConfig();
-
-        killprizes.put("test", "test2");
-        killprizes = (HashMap<String, String>) getConfig().get("kill-prize.vip-prizes");
-        saveConfig();
-    }
-
-    @Override
-    public void onDisable() {
     }
 
     private void registerEvents() {

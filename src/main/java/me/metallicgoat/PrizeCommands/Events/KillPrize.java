@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.List;
+import java.util.Map;
 
 public class KillPrize implements Listener {
 
@@ -25,6 +26,15 @@ public class KillPrize implements Listener {
             Team team = arena.getPlayerTeam(victim);
             Team killerTeam = arena.getPlayerTeam(killer);
             List<String> killPrize = arena.isBedDestroyed(team) ? plugin.getConfig().getStringList("final-kill-prize.commands"):plugin.getConfig().getStringList("kill-prize.commands");
+            for (Map.Entry<String, String> entry : Main.killprizes.entrySet()) {
+                String permission = entry.getKey();
+                String cmd = entry.getValue();
+
+                if(killer.hasPermission(permission)) {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+                }
+            }
+
             List<String> killBroadcast = arena.isBedDestroyed(team) ? plugin.getConfig().getStringList("final-kill-prize.broadcast"):plugin.getConfig().getStringList("kill-prize.broadcast");
 
             broadcastKill(arena, killBroadcast, killer, victim, killerTeam ,team);

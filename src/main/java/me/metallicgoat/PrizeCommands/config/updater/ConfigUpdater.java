@@ -1,4 +1,4 @@
-package me.metallicgoat.PrizeCommands.ConfigUpdater;
+package me.metallicgoat.PrizeCommands.config.updater;
 
 import com.google.common.base.Preconditions;
 import org.bukkit.configuration.ConfigurationSection;

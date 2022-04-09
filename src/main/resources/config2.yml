@@ -1,0 +1,44 @@
+#Please Note Commands are run as console, NOT as player
+
+# {destroyer} - get the destroyer's name
+bed-break-prize:
+  commands:
+    - ''
+
+# {killer} - player's name - command & broadcast
+# {victim} - victim's name - command & broadcast
+# {killer-team} - killer's team - broadcast only
+# {victim-team} - victim's team - broadcast only
+kill-prize:
+  commands:
+    - ''
+  broadcast:
+    - ''
+final-kill-prize:
+  comammnds:
+    - ''
+  broadcast:
+    - ''
+
+
+#By default, players will get a loose prize if they have played for at least 2 min
+#No matter if they are still in the arena or not
+#Prize commands are run once the game has finished
+# {player} {arena-name}
+end-game-prizes:
+  minimum-time: 2
+  win-prize:
+    - ''
+  loose-prize:
+    - ''
+
+#Interval in ticks (20 tics in 1 sec) (2 min = 2400 ticks)
+# {player}
+playtime-prize:
+  enabled: false
+  interval: 2400
+  message:
+    - '&6+25 Bed Wars Experience (Time Played)'
+    - '&b+15 coins! (Time Played)'
+  commands:
+    - ''

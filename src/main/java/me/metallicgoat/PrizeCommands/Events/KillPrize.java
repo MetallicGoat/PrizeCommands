@@ -17,15 +17,16 @@ public class KillPrize implements Listener {
 
     @EventHandler
     public void onFinalKill(PlayerDeathEvent e){
-        Main plugin = Main.getInstance();
-        Player victim = e.getEntity();
-        Arena arena = BedwarsAPI.getGameAPI().getArenaByPlayer(victim);
+        final Main plugin = Main.getInstance();
+        final Player victim = e.getEntity();
+        final Arena arena = BedwarsAPI.getGameAPI().getArenaByPlayer(victim);
+
         if (arena != null && e.getEntity().getKiller() != null){
-            Player killer = e.getEntity().getKiller();
-            Team team = arena.getPlayerTeam(victim);
-            Team killerTeam = arena.getPlayerTeam(killer);
-            List<String> killPrize = arena.isBedDestroyed(team) ? plugin.getConfig().getStringList("final-kill-prize.commands"):plugin.getConfig().getStringList("kill-prize.commands");
-            List<String> killBroadcast = arena.isBedDestroyed(team) ? plugin.getConfig().getStringList("final-kill-prize.broadcast"):plugin.getConfig().getStringList("kill-prize.broadcast");
+            final Player killer = e.getEntity().getKiller();
+            final Team team = arena.getPlayerTeam(victim);
+            final Team killerTeam = arena.getPlayerTeam(killer);
+            final List<String> killPrize = arena.isBedDestroyed(team) ? plugin.getConfig().getStringList("final-kill-prize.commands"):plugin.getConfig().getStringList("kill-prize.commands");
+            final List<String> killBroadcast = arena.isBedDestroyed(team) ? plugin.getConfig().getStringList("final-kill-prize.broadcast"):plugin.getConfig().getStringList("kill-prize.broadcast");
 
             broadcastKill(arena, killBroadcast, killer, victim, killerTeam ,team);
             for (String command : killPrize) {

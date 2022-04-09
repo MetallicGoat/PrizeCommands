@@ -34,7 +34,7 @@ public class EndGame implements Listener {
     public void onLeaveArena(PlayerQuitArenaEvent e){
         final Arena arena = e.getArena();
         if(arena.getStatus() == ArenaStatus.RUNNING && arena.getRunningTime() <= time){
-            Collection<Player> activePlayers = playing.get(arena);
+            final Collection<Player> activePlayers = playing.get(arena);
             activePlayers.remove(e.getPlayer());
             playing.replace(arena, activePlayers);
         }
@@ -43,9 +43,9 @@ public class EndGame implements Listener {
     //Add players back if they rejoin
     @EventHandler
     public void onRejoin(PlayerRejoinArenaEvent e){
-        Arena arena = e.getArena();
+        final Arena arena = e.getArena();
         if(e.getIssues().isEmpty()){
-            Collection<Player> activePlayers = playing.get(arena);
+            final Collection<Player> activePlayers = playing.get(arena);
             activePlayers.add(e.getPlayer());
             playing.replace(arena, activePlayers);
         }
@@ -54,13 +54,14 @@ public class EndGame implements Listener {
     //Run commands on game end
     @EventHandler
     public void onGameEnd(RoundEndEvent e){
-        Arena arena = e.getArena();
-        Collection<Player> activePlayers = playing.get(arena);
+        final Arena arena = e.getArena();
+        final Collection<Player> activePlayers = playing.get(arena);
+
         if(activePlayers != null && time < arena.getRunningTime()) {
-            String arenaName = arena.getDisplayName();
+            final String arenaName = arena.getDisplayName();
             for(Player player:activePlayers){
-                String name = player.getName();
-                List<String> endPrize = e.getWinners().contains(player) ? plugin().getConfig().getStringList("end-game-prizes.win-prize") : plugin().getConfig().getStringList("end-game-prizes.loose-prize");
+                final String name = player.getName();
+                final List<String> endPrize = e.getWinners().contains(player) ? plugin().getConfig().getStringList("end-game-prizes.win-prize") : plugin().getConfig().getStringList("end-game-prizes.loose-prize");
                 for (String command : endPrize) {
                     if (command != null && !command.equals("")) {
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), Message.build(command)

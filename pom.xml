@@ -6,7 +6,7 @@
 
     <groupId>me.metallicgoat</groupId>
     <artifactId>PrizeCommands</artifactId>
-    <version>v3.0.0-Beta-1</version>
+    <version>v3.0.0</version>
 
     <repositories>
         <repository>
@@ -23,13 +23,13 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.17.1-R0.1-SNAPSHOT</version>
+            <version>1.18.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>de.marcely.bedwars</groupId>
             <artifactId>API</artifactId>
-            <version>5.0.3</version>
+            <version>5.0.9</version>
         </dependency>
     </dependencies>
     <properties>

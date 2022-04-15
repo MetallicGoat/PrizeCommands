@@ -4,6 +4,7 @@ import de.marcely.bedwars.api.arena.Arena;
 import de.marcely.bedwars.api.arena.Team;
 import de.marcely.bedwars.api.message.Message;
 import de.marcely.bedwars.tools.Helper;
+import me.metallicgoat.PrizeCommands.config.ConfigValue;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -17,6 +18,10 @@ public class EarnPrize {
     public EarnPrize(Arena arena, Player player, Prize prize, HashMap<String, String> placeholderReplacements){
         this.placeholderReplacements = placeholderReplacements;
 
+        if(!ConfigValue.enabled)
+            return;
+
+        // Only run prize for supported arenas (or all arenas if empty list)
         if(!prize.supportedArenas.isEmpty() && !prize.supportedArenas.contains(arena))
             return;
 
@@ -56,7 +61,7 @@ public class EarnPrize {
     private String formatString(Player player, Arena arena, String string){
         final Message formattedString = Message.build(string);
 
-        // Placeholder values
+        // Placeholder values (Supported by EVERY prize)
         final Team team = arena.getPlayerTeam(player);
         final String teamName = team != null ? team.getDisplayName() : "";
         final String teamColor = team != null ? team.name() : "";

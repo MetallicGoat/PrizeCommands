@@ -16,7 +16,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import java.util.HashMap;
 import java.util.List;
 
-public class KillPrize implements Listener {
+public class PlayerKillPrize implements Listener {
 
     @EventHandler
     public void onFinalKill(PlayerDeathEvent e){

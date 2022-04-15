@@ -1,44 +1,69 @@
-#Please Note Commands are run as console, NOT as player
+# Join our discord for support: https://discord.gg/3mJuxUW
+Enabled: false
 
-# {destroyer} - get the destroyer's name
-bed-break-prize:
-  commands:
-    - ''
+# Add Prize ID's here, NOT commands
+Kill-Prize:
+  - ''
+Final-Kill-Prize:
+  - ''
+Bed-Break-Prize:
+  - ''
+Earn-Achievement-Prize:
+  - ''
+Join-Arena-Prize:
+  - ''
+Leave-Arena-Prize:
+  - ''
+Rejoin-Arena-Prize:
+  - ''
 
-# {killer} - player's name - command & broadcast
-# {victim} - victim's name - command & broadcast
-# {killer-team} - killer's team - broadcast only
-# {victim-team} - victim's team - broadcast only
-kill-prize:
-  commands:
+End-Game-Prizes:
+  Minimum-Time: 2400
+  Win-Prizes:
     - ''
-  broadcast:
-    - ''
-final-kill-prize:
-  comammnds:
-    - ''
-  broadcast:
-    - ''
-
-
-#By default, players will get a loose prize if they have played for at least 2 min
-#No matter if they are still in the arena or not
-#Prize commands are run once the game has finished
-# {player} {arena-name}
-end-game-prizes:
-  minimum-time: 2
-  win-prize:
-    - ''
-  loose-prize:
+  Lose-Prizes:
     - ''
 
-#Interval in ticks (20 tics in 1 sec) (2 min = 2400 ticks)
-# {player}
-playtime-prize:
-  enabled: false
-  interval: 2400
-  message:
-    - '&6+25 Bed Wars Experience (Time Played)'
-    - '&b+15 coins! (Time Played)'
-  commands:
-    - ''
+Playtime-Prize:
+  Enabled: false
+  Interval: 2400
+  Prizes:
+    - 'Prize-ID-Here'
+    - 'Prize-1'
+
+Prizes:
+  Prize-1:
+    Enabled: true
+    Permission: ''
+    Commands:
+      - ''
+    Broadcast:
+      - ''
+    Player-Message:
+      - ''
+    Supported-Arenas:
+      - ''
+
+  Prize-2:
+    Enabled: true
+    Permission: ''
+    Commands:
+      - ''
+    Broadcast:
+      - ''
+    Player-Message:
+      - ''
+    Supported-Arenas:
+      - ''
+
+  Prize-3:
+    Enabled: true
+    Permission: ''
+    Commands:
+      - ''
+    Broadcast:
+      - ''
+    Player-Message:
+      - ''
+    Supported-Arenas:
+      - ''

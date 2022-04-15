@@ -1,11 +1,12 @@
 package me.metallicgoat.PrizeCommands;
 
 import de.marcely.bedwars.tools.Helper;
-import me.metallicgoat.PrizeCommands.ConvertToV3Still.EndGame;
-import me.metallicgoat.PrizeCommands.ConvertToV3Still.PlayTime;
-import me.metallicgoat.PrizeCommands.ConvertToV3Still.PlayerConnections;
+import me.metallicgoat.PrizeCommands.events.LoseWinPrizes;
+import me.metallicgoat.PrizeCommands.events.PlayTimePrize;
+import me.metallicgoat.PrizeCommands.events.PlayerConnections;
 import me.metallicgoat.PrizeCommands.events.*;
 import me.metallicgoat.PrizeCommands.config.Config;
+import me.metallicgoat.PrizeCommands.util.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -32,8 +33,7 @@ public class PrizeCommandsPlugin extends JavaPlugin {
         if(!checkMBedwars()) return;
         if(!registerAddon()) return;
 
-        //int pluginId = 11774;
-        //Metrics metrics = new Metrics(this, pluginId);
+        new Metrics(this, 11774);
 
         registerEvents();
         Config.save();
@@ -51,11 +51,12 @@ public class PrizeCommandsPlugin extends JavaPlugin {
 
     private void registerEvents() {
         PluginManager manager = this.server.getPluginManager();
-        manager.registerEvents(new BedBreakPrize(), this);
-        manager.registerEvents(new KillPrize(), this); // Kill & Final Kill
-        manager.registerEvents(new PlayTime(), this);
-        manager.registerEvents(new EndGame(), this);
+        manager.registerEvents(new PlayerBreakBedPrize(), this);
+        manager.registerEvents(new PlayerKillPrize(), this); // Kill & Final Kill
+        manager.registerEvents(new PlayTimePrize(), this);
+        manager.registerEvents(new LoseWinPrizes(), this);
         manager.registerEvents(new PlayerConnections(), this); // Join & Leave & Rejoin
+        manager.registerEvents(new AchievementEarnPrize(), this);
     }
 
     public static PrizeCommandsPlugin getInstance() {

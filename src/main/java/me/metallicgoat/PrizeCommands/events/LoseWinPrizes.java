@@ -1,4 +1,4 @@
-package me.metallicgoat.PrizeCommands.ConvertToV3Still;
+package me.metallicgoat.PrizeCommands.events;
 
 import de.marcely.bedwars.api.arena.Arena;
 import de.marcely.bedwars.api.arena.ArenaStatus;
@@ -6,9 +6,9 @@ import de.marcely.bedwars.api.event.arena.RoundEndEvent;
 import de.marcely.bedwars.api.event.arena.RoundStartEvent;
 import de.marcely.bedwars.api.event.player.PlayerQuitArenaEvent;
 import de.marcely.bedwars.api.event.player.PlayerRejoinArenaEvent;
-import de.marcely.bedwars.api.message.Message;
-import me.metallicgoat.PrizeCommands.PrizeCommandsPlugin;
-import org.bukkit.Bukkit;
+import me.metallicgoat.PrizeCommands.EarnPrize;
+import me.metallicgoat.PrizeCommands.Prize;
+import me.metallicgoat.PrizeCommands.config.ConfigValue;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,10 +17,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-public class EndGame implements Listener {
+public class LoseWinPrizes implements Listener {
 
     private final HashMap<Arena, Collection<Player>> playing = new HashMap<>();
-    private final long time = plugin().getConfig().getLong("end-game-prizes.minimum-time") * 1000;
+    private final long time = ConfigValue.minimumPlayTime;
 
     //Add players to map on round start
     @EventHandler
@@ -57,24 +57,24 @@ public class EndGame implements Listener {
         final Arena arena = e.getArena();
         final Collection<Player> activePlayers = playing.get(arena);
 
-        if(activePlayers != null && time < arena.getRunningTime()) {
-            final String arenaName = arena.getDisplayName();
+        if(activePlayers != null && time <= arena.getRunningTime()) {
+
+            final HashMap<String, String> placeholderReplacements = new HashMap<>();
+            if(e.getWinnerTeam() != null) {
+                placeholderReplacements.put("winner-team", e.getWinnerTeam().getDisplayName());
+                placeholderReplacements.put("winner-team-color", e.getWinnerTeam().name());
+                placeholderReplacements.put("winner-team-color-code", "&" + e.getWinnerTeam().getChatColor().getChar());
+            }
+
             for(Player player:activePlayers){
-                final String name = player.getName();
-                final List<String> endPrize = e.getWinners().contains(player) ? plugin().getConfig().getStringList("end-game-prizes.win-prize") : plugin().getConfig().getStringList("end-game-prizes.loose-prize");
-                for (String command : endPrize) {
-                    if (command != null && !command.equals("")) {
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), Message.build(command)
-                                .placeholder("player", name)
-                                .placeholder("arena-name", arenaName)
-                                .done());
-                    }
+
+                final List<Prize> endPrize = e.getWinners().contains(player) ? ConfigValue.playerWinPrize : ConfigValue.playerLosePrize;
+
+                for (Prize prize: endPrize) {
+                    new EarnPrize(arena, player, prize, placeholderReplacements);
                 }
             }
         }
         playing.remove(arena);
-    }
-    private static PrizeCommandsPlugin plugin(){
-        return PrizeCommandsPlugin.getInstance();
     }
 }

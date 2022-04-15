@@ -12,7 +12,7 @@ import org.bukkit.event.Listener;
 
 import java.util.HashMap;
 
-public class BedBreakPrize implements Listener {
+public class PlayerBreakBedPrize implements Listener {
     @EventHandler
     public void onBedDestroy(ArenaBedBreakEvent e){
         if(!e.isPlayerCaused())

@@ -43,7 +43,7 @@ public class Config {
             plugin.copyResource("config.yml", file);
 
         try {
-            ConfigUpdater.update(plugin, "config.yml", file, Collections.singletonList("Silverfish.Display-Name"));
+            ConfigUpdater.update(plugin, "config.yml", file, Collections.singletonList("Prizes"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,9 +66,8 @@ public class Config {
     public static void load(){
         final FileConfiguration mainConfig = getConfig();
 
+        // Load Prizes
         final ConfigurationSection section = mainConfig.getConfigurationSection("Prizes");
-
-
         final List<Prize> prizes = new ArrayList<>();
 
         if(section != null) {
@@ -79,7 +78,7 @@ public class Config {
 
                 prize.setPrizeId(key);
                 prize.setEnabled(mainConfig.getBoolean(beginPath + "Enabled"));
-                prize.setPermission(mainConfig.getString(beginPath + "Permissions"));
+                prize.setPermission(mainConfig.getString(beginPath + "Permission"));
                 prize.setCommands(mainConfig.getStringList(beginPath + "Commands"));
                 prize.setBroadcast(mainConfig.getStringList(beginPath + "Broadcast"));
                 prize.setPrivateMessage(mainConfig.getStringList(beginPath + "Player-Message"));
@@ -91,26 +90,37 @@ public class Config {
 
         ConfigValue.prizes = prizes;
 
-        ConfigValue.playerWinPrize = buildPrizeList(prizes, mainConfig.getStringList(""));
-        ConfigValue.playerLosePrize = buildPrizeList(prizes, mainConfig.getStringList(""));
-        ConfigValue.playerKillPrize = buildPrizeList(prizes, mainConfig.getStringList(""));
-        ConfigValue.playerFinalKillPrize = buildPrizeList(prizes, mainConfig.getStringList(""));
-        ConfigValue.playerBreakBreakBedPrize = buildPrizeList(prizes, mainConfig.getStringList(""));
-        ConfigValue.playerEarnAchievementPrize = buildPrizeList(prizes, mainConfig.getStringList(""));
-        ConfigValue.playerJoinArenaPrize= buildPrizeList(prizes, mainConfig.getStringList(""));
-        ConfigValue.playerLeaveArenaPrize = buildPrizeList(prizes, mainConfig.getStringList(""));
-        ConfigValue.playerRejoinArenaPrize = buildPrizeList(prizes, mainConfig.getStringList(""));
-        ConfigValue.playTimePrizes = buildPrizeList(prizes, mainConfig.getStringList(""));
+        // Enabled
+        ConfigValue.enabled = mainConfig.getBoolean("Enabled");
+
+        // Regular Prizes
+        ConfigValue.playerKillPrize = buildPrizeList(mainConfig.getStringList("Kill-Prize"));
+        ConfigValue.playerFinalKillPrize = buildPrizeList(mainConfig.getStringList("Final-Kill-Prize"));
+        ConfigValue.playerBreakBreakBedPrize = buildPrizeList(mainConfig.getStringList("Bed-Break-Prize"));
+        ConfigValue.playerEarnAchievementPrize = buildPrizeList(mainConfig.getStringList("Earn-Achievement-Prize"));
+        ConfigValue.playerJoinArenaPrize= buildPrizeList(mainConfig.getStringList("Join-Arena-Prize"));
+        ConfigValue.playerLeaveArenaPrize = buildPrizeList(mainConfig.getStringList("Leave-Arena-Prize"));
+        ConfigValue.playerRejoinArenaPrize = buildPrizeList(mainConfig.getStringList("Rejoin-Arena-Prize"));
+
+        // Game End
+        ConfigValue.minimumPlayTime = mainConfig.getLong("End-Game-Prizes.Minimum-Time");
+        ConfigValue.playerWinPrize = buildPrizeList(mainConfig.getStringList("End-Game-Prizes.Win-Prizes"));
+        ConfigValue.playerLosePrize = buildPrizeList(mainConfig.getStringList("End-Game-Prizes.Lose-Prizes"));
+
+        // Play Time
+        ConfigValue.playTimePrizeEnabled = mainConfig.getBoolean("Playtime-Prize.Enabled");
+        ConfigValue.playTimeInterval = mainConfig.getLong("Playtime-Prize.Interval");
+        ConfigValue.playTimePrizes = buildPrizeList(mainConfig.getStringList("Playtime-Prize.Prizes"));
 
     }
 
-    private static List<Prize> buildPrizeList(List<Prize> allPrizes, List<String> stringPrizes){
+    private static List<Prize> buildPrizeList(List<String> stringPrizes){
         final List<Prize> supportedPrizes = new ArrayList<>();
 
-        if(stringPrizes == null)
+        if(stringPrizes == null || ConfigValue.prizes == null)
             return supportedPrizes;
 
-        for(Prize prize : allPrizes){
+        for(Prize prize : ConfigValue.prizes){
             if(stringPrizes.contains(prize.getPrizeId()))
                 supportedPrizes.add(prize);
         }
@@ -133,6 +143,7 @@ public class Config {
                     final Collection<Arena> arenaList = GameAPI.get().getArenasByPickerCondition(arenaName);
                     supportedArenas.addAll(arenaList);
                 } catch (ArenaConditionParseException ignored) {
+
                 }
             }
         }

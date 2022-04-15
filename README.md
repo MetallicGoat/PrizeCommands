@@ -6,7 +6,7 @@ Once you restart, your config file will automatically be generated.
 
 ## Setup
 ### Create a Prize
-You can create unliited prizes, and even reuse them on different events!
+You can create unlimited prizes, and even reuse them on different events!
 You can add a prize to your config like this:
 ```yml
   Prize-ID:
@@ -24,13 +24,13 @@ You can add a prize to your config like this:
 
 ---
 `Prize-ID` The Identifier of this prize. This can be anything (As long as it follows the YML formatting rules). 
-Using the identifer you can set this prize to run on certian events.
+Using the identifier you can set this prize to run on certain events.
 
 ---
 `Enabled` This config simply allows you to disable a prize without having to delete it from the config.
 
 ---
-`Permission` Set required permission for a prize to be run. Leave empty or remove config to not require a permisson.
+`Permission` Set required permission for a prize to be run. Leave empty or remove config to not require a permission.
 
 ---
 `Commands` Command(s) that get executed as console when the prize is triggered.
@@ -53,3 +53,14 @@ Using the identifer you can set this prize to run on certian events.
 `{destroyed-team-name}, {destroyed-team-color}, {destroyed-team-color-code}`
 #### Additional Placeholders supported by Kill/Final Kill Prizes
 `{killer-team-name}, {killer-team-color}, {killer-team-color-code}, {Killer-real-name}, {Killer-display-name}, {killer-x}, {killer-y}, {killer-z}`
+
+## Set a prize to trigger
+After you create a prize, you need to add it to event. Let's say we want to give someone a prize when they break a bed. 
+Simply add that prize to the Player Break Bed prize list!
+```yml
+Bed-Break-Prizes:
+  - ''
+```
+You can add as many prizes as you want to the events!
+
+Still need help? Join our [Discord.](https://discord.gg/3mJuxUW) Please be a verified MBedwars buyer, or buyer helper before asking for help on MetallicGoat's Discord server.

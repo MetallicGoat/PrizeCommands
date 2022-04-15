@@ -94,13 +94,13 @@ public class Config {
         ConfigValue.enabled = mainConfig.getBoolean("Enabled");
 
         // Regular Prizes
-        ConfigValue.playerKillPrize = buildPrizeList(mainConfig.getStringList("Kill-Prize"));
-        ConfigValue.playerFinalKillPrize = buildPrizeList(mainConfig.getStringList("Final-Kill-Prize"));
-        ConfigValue.playerBreakBreakBedPrize = buildPrizeList(mainConfig.getStringList("Bed-Break-Prize"));
-        ConfigValue.playerEarnAchievementPrize = buildPrizeList(mainConfig.getStringList("Earn-Achievement-Prize"));
-        ConfigValue.playerJoinArenaPrize= buildPrizeList(mainConfig.getStringList("Join-Arena-Prize"));
-        ConfigValue.playerLeaveArenaPrize = buildPrizeList(mainConfig.getStringList("Leave-Arena-Prize"));
-        ConfigValue.playerRejoinArenaPrize = buildPrizeList(mainConfig.getStringList("Rejoin-Arena-Prize"));
+        ConfigValue.playerKillPrize = buildPrizeList(mainConfig.getStringList("Kill-Prizes"));
+        ConfigValue.playerFinalKillPrize = buildPrizeList(mainConfig.getStringList("Final-Kill-Prizes"));
+        ConfigValue.playerBreakBreakBedPrize = buildPrizeList(mainConfig.getStringList("Bed-Break-Prizes"));
+        ConfigValue.playerEarnAchievementPrize = buildPrizeList(mainConfig.getStringList("Earn-Achievement-Prizes"));
+        ConfigValue.playerJoinArenaPrize= buildPrizeList(mainConfig.getStringList("Join-Arena-Prizes"));
+        ConfigValue.playerLeaveArenaPrize = buildPrizeList(mainConfig.getStringList("Leave-Arena-Prizes"));
+        ConfigValue.playerRejoinArenaPrize = buildPrizeList(mainConfig.getStringList("Rejoin-Arena-Prizes"));
 
         // Game End
         ConfigValue.minimumPlayTime = mainConfig.getLong("End-Game-Prizes.Minimum-Time");

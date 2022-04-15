@@ -1,20 +1,22 @@
 # Join our discord for support: https://discord.gg/3mJuxUW
+# Please read the setup instructions here: https://github.com/MetallicGoat/PrizeCommands
+# Before asking for help on discord
 Enabled: false
 
 # Add Prize ID's here, NOT commands
-Kill-Prize:
+Kill-Prizes:
   - ''
-Final-Kill-Prize:
+Final-Kill-Prizes:
   - ''
-Bed-Break-Prize:
+Bed-Break-Prizes:
   - ''
-Earn-Achievement-Prize:
+Earn-Achievement-Prizes:
   - ''
-Join-Arena-Prize:
+Join-Arena-Prizes:
   - ''
-Leave-Arena-Prize:
+Leave-Arena-Prizes:
   - ''
-Rejoin-Arena-Prize:
+Rejoin-Arena-Prizes:
   - ''
 
 End-Game-Prizes:
@@ -28,8 +30,7 @@ Playtime-Prize:
   Enabled: false
   Interval: 2400
   Prizes:
-    - 'Prize-ID-Here'
-    - 'Prize-1'
+    - ''
 
 Prizes:
   Prize-1:

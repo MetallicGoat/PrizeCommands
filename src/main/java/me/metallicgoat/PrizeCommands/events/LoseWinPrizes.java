@@ -61,7 +61,7 @@ public class LoseWinPrizes implements Listener {
 
             final HashMap<String, String> placeholderReplacements = new HashMap<>();
             if(e.getWinnerTeam() != null) {
-                placeholderReplacements.put("winner-team", e.getWinnerTeam().getDisplayName());
+                placeholderReplacements.put("winner-team-name", e.getWinnerTeam().getDisplayName());
                 placeholderReplacements.put("winner-team-color", e.getWinnerTeam().name());
                 placeholderReplacements.put("winner-team-color-code", "&" + e.getWinnerTeam().getChatColor().getChar());
             }

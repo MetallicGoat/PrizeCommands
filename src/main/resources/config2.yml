@@ -2,8 +2,7 @@
 
 # {destroyer} - get the destroyer's name
 bed-break-prize:
-  commands:
-    - ''
+  - "Bed-Break-Prize-1"
 
 # {killer} - player's name - command & broadcast
 # {victim} - victim's name - command & broadcast
@@ -42,3 +41,17 @@ playtime-prize:
     - '&b+15 coins! (Time Played)'
   commands:
     - ''
+
+Prizes:
+  Win-Prize:
+    Enabled: true
+    Permissions: ""
+    Commands:
+      - ""
+    Broadcast:
+      - ""
+    Player-Message:
+      - ""
+    # Leave empty to enable for all arenas
+    Supported-Arenas:
+      - ""

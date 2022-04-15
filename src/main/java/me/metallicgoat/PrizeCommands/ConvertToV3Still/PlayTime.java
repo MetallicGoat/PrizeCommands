@@ -1,11 +1,11 @@
-package me.metallicgoat.PrizeCommands.Events;
+package me.metallicgoat.PrizeCommands.ConvertToV3Still;
 
 import de.marcely.bedwars.api.BedwarsAPI;
 import de.marcely.bedwars.api.arena.Arena;
 import de.marcely.bedwars.api.arena.ArenaStatus;
 import de.marcely.bedwars.api.event.arena.RoundStartEvent;
 import de.marcely.bedwars.api.message.Message;
-import me.metallicgoat.PrizeCommands.Main;
+import me.metallicgoat.PrizeCommands.PrizeCommandsPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,7 +18,7 @@ public class PlayTime implements Listener {
 
     @EventHandler
     public void gameStart(RoundStartEvent e){
-        final Main plugin = Main.getInstance();
+        final PrizeCommandsPlugin plugin = PrizeCommandsPlugin.getInstance();
         final Arena a = e.getArena();
         if(plugin.getConfig().getBoolean("playtime-prize.enabled")) {
             final long time = plugin.getConfig().getLong("playtime-prize.interval");

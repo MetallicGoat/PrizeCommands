@@ -1,4 +1,4 @@
-package me.metallicgoat.PrizeCommands;
+package me.metallicgoat.PrizeCommands.util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;

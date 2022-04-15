@@ -1,4 +1,4 @@
-package me.metallicgoat.PrizeCommands.Events;
+package me.metallicgoat.PrizeCommands.ConvertToV3Still;
 
 import de.marcely.bedwars.api.arena.Arena;
 import de.marcely.bedwars.api.arena.ArenaStatus;
@@ -7,7 +7,7 @@ import de.marcely.bedwars.api.event.arena.RoundStartEvent;
 import de.marcely.bedwars.api.event.player.PlayerQuitArenaEvent;
 import de.marcely.bedwars.api.event.player.PlayerRejoinArenaEvent;
 import de.marcely.bedwars.api.message.Message;
-import me.metallicgoat.PrizeCommands.Main;
+import me.metallicgoat.PrizeCommands.PrizeCommandsPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -74,7 +74,7 @@ public class EndGame implements Listener {
         }
         playing.remove(arena);
     }
-    private static Main plugin(){
-        return Main.getInstance();
+    private static PrizeCommandsPlugin plugin(){
+        return PrizeCommandsPlugin.getInstance();
     }
 }

@@ -1,10 +1,10 @@
-package me.metallicgoat.PrizeCommands;
+package me.metallicgoat.prizecommands;
 
 import de.marcely.bedwars.api.arena.Arena;
 import de.marcely.bedwars.api.arena.Team;
 import de.marcely.bedwars.api.message.Message;
 import de.marcely.bedwars.tools.Helper;
-import me.metallicgoat.PrizeCommands.config.ConfigValue;
+import me.metallicgoat.prizecommands.config.ConfigValue;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -42,11 +42,8 @@ public class EarnPrize {
     }
 
     private void broadcastPrize(Player player, Arena arena, List<String> broadcast){
-        if(broadcast.size() == 1 && broadcast.get(0).equals(""))
-            return;
-
         for(String msg : broadcast)
-            arena.broadcast(formatString(player, arena, msg));
+            arena.broadcast(formatMessage(player, arena, msg));
     }
 
     private void sendMessage(Player player, Arena arena, List<String> message){
@@ -57,8 +54,12 @@ public class EarnPrize {
             player.sendMessage(formatString(player, arena, msg));
     }
 
-
     private String formatString(Player player, Arena arena, String string){
+        return formatMessage(player, arena, string).done();
+    }
+
+
+    private Message formatMessage(Player player, Arena arena, String string){
         final Message formattedString = Message.build(string);
 
         // Placeholder values (Supported by EVERY prize)
@@ -92,7 +93,6 @@ public class EarnPrize {
                 formattedString.placeholder(stringSet.getKey(), stringSet.getValue());
             }
         }
-
-        return formattedString.done();
+        return formattedString;
     }
 }

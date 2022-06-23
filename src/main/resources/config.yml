@@ -5,32 +5,39 @@ Enabled: false
 
 # Add Prize ID's here, NOT commands
 Kill-Prizes:
-  - ''
+  - 'Prize-1'
+  - 'Prize-2'
+  - 'Prize-3'
 Final-Kill-Prizes:
-  - ''
+  - 'Prize-1'
 Bed-Break-Prizes:
-  - ''
+  - 'Prize-2'
 Earn-Achievement-Prizes:
-  - ''
+  - 'Prize-3'
 Join-Arena-Prizes:
-  - ''
+  - 'Prize-1'
+  - 'Prize-2'
 Leave-Arena-Prizes:
-  - ''
+  - 'Prize-2'
+  - 'Prize-3'
 Rejoin-Arena-Prizes:
-  - ''
+  - 'Prize-1'
+  - 'Prize-3'
 
+# Minimum-Time = Minimum time a player must play to be eligible for this prize (in ticks)
 End-Game-Prizes:
   Minimum-Time: 2400
   Win-Prizes:
-    - ''
+    - 'Prize-1'
   Lose-Prizes:
-    - ''
+    - 'Prize-1'
 
+# Interval = How often a player receives this prize (In ticks)
 Playtime-Prize:
   Enabled: false
   Interval: 2400
   Prizes:
-    - ''
+    - 'Prize-1'
 
 Prizes:
   Prize-1:

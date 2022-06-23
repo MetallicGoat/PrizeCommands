@@ -1,4 +1,4 @@
-package me.metallicgoat.PrizeCommands;
+package me.metallicgoat.prizecommands;
 
 import de.marcely.bedwars.api.arena.Arena;
 import lombok.Getter;

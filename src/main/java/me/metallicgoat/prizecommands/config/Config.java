@@ -1,11 +1,11 @@
-package me.metallicgoat.PrizeCommands.config;
+package me.metallicgoat.prizecommands.config;
 
 import de.marcely.bedwars.api.GameAPI;
 import de.marcely.bedwars.api.arena.Arena;
 import de.marcely.bedwars.api.exception.ArenaConditionParseException;
-import me.metallicgoat.PrizeCommands.Prize;
-import me.metallicgoat.PrizeCommands.PrizeCommandsPlugin;
-import me.metallicgoat.PrizeCommands.config.updater.ConfigUpdater;
+import me.metallicgoat.prizecommands.Prize;
+import me.metallicgoat.prizecommands.PrizeCommandsPlugin;
+import me.metallicgoat.prizecommands.config.updater.ConfigUpdater;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;

@@ -1,12 +1,12 @@
-package me.metallicgoat.PrizeCommands;
+package me.metallicgoat.prizecommands;
 
 import de.marcely.bedwars.tools.Helper;
-import me.metallicgoat.PrizeCommands.events.LoseWinPrizes;
-import me.metallicgoat.PrizeCommands.events.PlayTimePrize;
-import me.metallicgoat.PrizeCommands.events.PlayerConnections;
-import me.metallicgoat.PrizeCommands.events.*;
-import me.metallicgoat.PrizeCommands.config.Config;
-import me.metallicgoat.PrizeCommands.util.Metrics;
+import me.metallicgoat.prizecommands.events.LoseWinPrizes;
+import me.metallicgoat.prizecommands.events.PlayTimePrize;
+import me.metallicgoat.prizecommands.events.PlayerConnections;
+import me.metallicgoat.prizecommands.events.*;
+import me.metallicgoat.prizecommands.config.Config;
+import me.metallicgoat.prizecommands.util.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -20,8 +20,8 @@ import java.io.InputStream;
 
 public class PrizeCommandsPlugin extends JavaPlugin {
 
-    public static final int MIN_MBEDWARS_API_VER = 8;
-    public static final String MIN_MBEDWARS_VER_NAME = "5.0.7";
+    public static final int MIN_MBEDWARS_API_VER = 11;
+    public static final String MIN_MBEDWARS_VER_NAME = "5.0.10";
 
     private static PrizeCommandsAddon addon;
     private static PrizeCommandsPlugin instance;

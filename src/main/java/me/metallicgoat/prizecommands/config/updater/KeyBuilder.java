@@ -1,4 +1,4 @@
-package me.metallicgoat.PrizeCommands.config.updater;
+package me.metallicgoat.prizecommands.config.updater;
 
 import org.bukkit.configuration.file.FileConfiguration;
 

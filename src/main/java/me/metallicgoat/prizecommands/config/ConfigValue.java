@@ -1,6 +1,6 @@
-package me.metallicgoat.PrizeCommands.config;
+package me.metallicgoat.prizecommands.config;
 
-import me.metallicgoat.PrizeCommands.Prize;
+import me.metallicgoat.prizecommands.Prize;
 
 import java.util.List;
 

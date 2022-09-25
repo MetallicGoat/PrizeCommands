@@ -1,7 +1,7 @@
-version: 3.0.0-Beta-1
+version: 3.0.0
 name: PrizeCommands
 author: MetallicGoat
-main: me.metallicgoat.PrizeCommands.PrizeCommandsPlugin
+main: me.metallicgoat.prizecommands.PrizeCommandsPlugin
 api-version: 1.13
 description: PrizeCommands for MBedwars
 depend: [MBedwars]

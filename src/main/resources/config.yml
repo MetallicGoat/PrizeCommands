@@ -39,6 +39,7 @@ Playtime-Prize:
   Prizes:
     - 'Prize-1'
 
+# Add Prize handlers here
 Prizes:
   Prize-1:
     Enabled: true

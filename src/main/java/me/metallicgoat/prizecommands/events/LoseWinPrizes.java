@@ -13,41 +13,37 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
 public class LoseWinPrizes implements Listener {
 
-    private final HashMap<Arena, Collection<Player>> playing = new HashMap<>();
+    private final HashMap<Arena, List<Player>> playing = new HashMap<>();
     private final long time = ConfigValue.minimumPlayTime;
 
-    //Add players to map on round start
+    // Add players to map on round start
     @EventHandler
     public void onGameStart(RoundStartEvent e){
-        final Arena arena = e.getArena();
-        playing.put(arena, arena.getPlayers());
+        playing.put(e.getArena(), new ArrayList<>(e.getArena().getPlayers()));
     }
 
-    //remove player from map on leave if playing less than time
+    // Remove player from map on leave if playing less than time
     @EventHandler
     public void onLeaveArena(PlayerQuitArenaEvent e){
         final Arena arena = e.getArena();
         if(arena.getStatus() == ArenaStatus.RUNNING && arena.getRunningTime() <= time){
-            final Collection<Player> activePlayers = playing.get(arena);
-            activePlayers.remove(e.getPlayer());
-            playing.replace(arena, activePlayers);
+            playing.get(arena).remove(e.getPlayer());
         }
     }
 
-    //Add players back if they rejoin
+    // Add players back if they rejoin
     @EventHandler
     public void onRejoin(PlayerRejoinArenaEvent e){
         final Arena arena = e.getArena();
-        if(e.getIssues().isEmpty()){
-            final Collection<Player> activePlayers = playing.get(arena);
-            activePlayers.add(e.getPlayer());
-            playing.replace(arena, activePlayers);
+        if(arena.getStatus() == ArenaStatus.RUNNING && e.getIssues().isEmpty()){
+            playing.get(arena).add(e.getPlayer());
         }
     }
 

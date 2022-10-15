@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import java.util.*;
 
 public class EarnPrize {
-
+    // TODO why is this a class? Build it into Prize
     // Extra placeholders that may be wanted for a certain prize
     private final HashMap<String, String> placeholderReplacements;
 
@@ -21,8 +21,10 @@ public class EarnPrize {
         if(!ConfigValue.enabled)
             return;
 
+        final List<Arena> supportedArenas = prize.getSupportedArenas();
+
         // Only run prize for supported arenas (or all arenas if empty list)
-        if(!prize.supportedArenas.isEmpty() && !prize.supportedArenas.contains(arena))
+        if(!supportedArenas.isEmpty() && !supportedArenas.contains(arena))
             return;
 
         if(prize.getPermission() != null
@@ -30,7 +32,7 @@ public class EarnPrize {
                 && !player.hasPermission(prize.getPermission()))
             return;
 
-        runPrizeCommands(player, arena,prize.getCommands());
+        runPrizeCommands(player, arena, prize.getCommands());
         broadcastPrize(player, arena, prize.getBroadcast());
         sendMessage(player, arena, prize.getPrivateMessage());
 

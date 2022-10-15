@@ -1,8 +1,5 @@
 package me.metallicgoat.prizecommands.config;
 
-import de.marcely.bedwars.api.GameAPI;
-import de.marcely.bedwars.api.arena.Arena;
-import de.marcely.bedwars.api.exception.ArenaConditionParseException;
 import me.metallicgoat.prizecommands.Prize;
 import me.metallicgoat.prizecommands.PrizeCommandsPlugin;
 import me.metallicgoat.prizecommands.config.updater.ConfigUpdater;
@@ -13,7 +10,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -74,15 +70,18 @@ public class Config {
 
             for(String key : section.getKeys(false)){
                 final String beginPath = "Prizes." + key + ".";
-                final Prize prize = new Prize();
 
-                prize.setPrizeId(key);
-                prize.setEnabled(mainConfig.getBoolean(beginPath + "Enabled"));
-                prize.setPermission(mainConfig.getString(beginPath + "Permission"));
-                prize.setCommands(mainConfig.getStringList(beginPath + "Commands"));
-                prize.setBroadcast(mainConfig.getStringList(beginPath + "Broadcast"));
-                prize.setPrivateMessage(mainConfig.getStringList(beginPath + "Player-Message"));
-                prize.setSupportedArenas(buildSupportedArenaList(mainConfig.getStringList(beginPath + "Supported-Arenas")));
+                if(mainConfig.getBoolean(beginPath + "Enabled", false))
+                    continue;
+
+                final Prize prize = new Prize(
+                        key, // Prize id
+                        mainConfig.getString(beginPath + "Permission"),
+                        mainConfig.getStringList(beginPath + "Commands"),
+                        mainConfig.getStringList(beginPath + "Broadcast"),
+                        mainConfig.getStringList(beginPath + "Player-Message"),
+                        mainConfig.getStringList(beginPath + "Supported-Arenas")
+                );
 
                 prizes.add(prize);
             }
@@ -126,27 +125,5 @@ public class Config {
         }
 
         return supportedPrizes;
-    }
-
-    private static List<Arena> buildSupportedArenaList(List<String> supportedArenaNames){
-        final List<Arena> supportedArenas = new ArrayList<>();
-
-        if(supportedArenaNames == null)
-            return supportedArenas;
-
-        for(String arenaName : supportedArenaNames){
-            final Arena arena = GameAPI.get().getArenaByName(arenaName);
-            if(arena != null)
-                supportedArenas.add(arena);
-            else{
-                try {
-                    final Collection<Arena> arenaList = GameAPI.get().getArenasByPickerCondition(arenaName);
-                    supportedArenas.addAll(arenaList);
-                } catch (ArenaConditionParseException ignored) {
-
-                }
-            }
-        }
-        return supportedArenas;
     }
 }

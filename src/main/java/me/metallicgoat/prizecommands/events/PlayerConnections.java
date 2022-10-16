@@ -4,7 +4,6 @@ import de.marcely.bedwars.api.arena.Arena;
 import de.marcely.bedwars.api.event.player.PlayerJoinArenaEvent;
 import de.marcely.bedwars.api.event.player.PlayerQuitArenaEvent;
 import de.marcely.bedwars.api.event.player.PlayerRejoinArenaEvent;
-import me.metallicgoat.prizecommands.EarnPrize;
 import me.metallicgoat.prizecommands.Prize;
 import me.metallicgoat.prizecommands.config.ConfigValue;
 import org.bukkit.entity.Player;
@@ -18,9 +17,9 @@ public class PlayerConnections implements Listener {
         final Arena arena = event.getArena();
         final Player player = event.getPlayer();
 
-        for(Prize prize : ConfigValue.playerJoinArenaPrize){
-            new EarnPrize(arena, player, prize, null);
-        }
+        for(Prize prize : ConfigValue.playerJoinArenaPrize)
+            prize.earn(arena, player, null);
+
     }
 
     @EventHandler
@@ -28,9 +27,9 @@ public class PlayerConnections implements Listener {
         final Arena arena = event.getArena();
         final Player player = event.getPlayer();
 
-        for(Prize prize : ConfigValue.playerLeaveArenaPrize){
-            new EarnPrize(arena, player, prize, null);
-        }
+        for(Prize prize : ConfigValue.playerLeaveArenaPrize)
+            prize.earn(arena, player, null);
+
     }
 
     @EventHandler
@@ -38,8 +37,8 @@ public class PlayerConnections implements Listener {
         final Arena arena = event.getArena();
         final Player player = event.getPlayer();
 
-        for(Prize prize : ConfigValue.playerRejoinArenaPrize){
-            new EarnPrize(arena, player, prize, null);
-        }
+        for(Prize prize : ConfigValue.playerRejoinArenaPrize)
+            prize.earn(arena, player, null);
+
     }
 }

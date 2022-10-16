@@ -4,7 +4,6 @@ import de.marcely.bedwars.api.BedwarsAPI;
 import de.marcely.bedwars.api.arena.Arena;
 import de.marcely.bedwars.api.arena.Team;
 import de.marcely.bedwars.tools.Helper;
-import me.metallicgoat.prizecommands.EarnPrize;
 import me.metallicgoat.prizecommands.Prize;
 import me.metallicgoat.prizecommands.config.ConfigValue;
 import org.bukkit.Location;
@@ -44,9 +43,9 @@ public class PlayerKillPrize implements Listener {
             placeholderReplacements.put("killer-y", String.valueOf(killerLoc.getY()));
             placeholderReplacements.put("killer-z", String.valueOf(killerLoc.getZ()));
 
-            for(Prize prize : prizes){
-                new EarnPrize(arena, killer, prize, placeholderReplacements);
-            }
+            for(Prize prize : prizes)
+                prize.earn(arena, killer, placeholderReplacements);
+
         }
     }
 }

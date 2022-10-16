@@ -6,7 +6,6 @@ import de.marcely.bedwars.api.event.arena.RoundEndEvent;
 import de.marcely.bedwars.api.event.arena.RoundStartEvent;
 import de.marcely.bedwars.api.event.player.PlayerQuitArenaEvent;
 import de.marcely.bedwars.api.event.player.PlayerRejoinArenaEvent;
-import me.metallicgoat.prizecommands.EarnPrize;
 import me.metallicgoat.prizecommands.Prize;
 import me.metallicgoat.prizecommands.config.ConfigValue;
 import org.bukkit.entity.Player;
@@ -62,13 +61,13 @@ public class LoseWinPrizes implements Listener {
                 placeholderReplacements.put("winner-team-color-code", "&" + e.getWinnerTeam().getChatColor().getChar());
             }
 
-            for(Player player:activePlayers){
+            for(Player player : activePlayers) {
 
                 final List<Prize> endPrize = e.getWinners().contains(player) ? ConfigValue.playerWinPrize : ConfigValue.playerLosePrize;
 
-                for (Prize prize: endPrize) {
-                    new EarnPrize(arena, player, prize, placeholderReplacements);
-                }
+                for (Prize prize: endPrize)
+                    prize.earn(arena, player, placeholderReplacements);
+
             }
         }
         playing.remove(arena);

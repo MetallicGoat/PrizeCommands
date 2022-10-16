@@ -3,7 +3,6 @@ package me.metallicgoat.prizecommands.events;
 import de.marcely.bedwars.api.arena.Arena;
 import de.marcely.bedwars.api.arena.Team;
 import de.marcely.bedwars.api.event.arena.ArenaBedBreakEvent;
-import me.metallicgoat.prizecommands.EarnPrize;
 import me.metallicgoat.prizecommands.Prize;
 import me.metallicgoat.prizecommands.config.ConfigValue;
 import org.bukkit.entity.Player;
@@ -19,7 +18,6 @@ public class PlayerBreakBedPrize implements Listener {
             return;
 
         final HashMap<String, String> placeholderReplacements = new HashMap<>();
-
         final Player player = e.getPlayer();
         final Arena arena = e.getArena();
         final Team team = e.getTeam();
@@ -28,8 +26,8 @@ public class PlayerBreakBedPrize implements Listener {
         placeholderReplacements.put("destroyed-team-color", team.name());
         placeholderReplacements.put("destroyed-team-color-code", "&" + team.getChatColor().getChar());
 
-        for(Prize prize : ConfigValue.playerBreakBreakBedPrize){
-            new EarnPrize(arena, player, prize, placeholderReplacements);
-        }
+        for(Prize prize : ConfigValue.playerBreakBreakBedPrize)
+            prize.earn(arena, player, placeholderReplacements);
+
     }
 }

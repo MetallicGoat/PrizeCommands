@@ -3,7 +3,6 @@ package me.metallicgoat.prizecommands.events;
 import de.marcely.bedwars.api.arena.Arena;
 import de.marcely.bedwars.api.arena.ArenaStatus;
 import de.marcely.bedwars.api.event.arena.RoundStartEvent;
-import me.metallicgoat.prizecommands.EarnPrize;
 import me.metallicgoat.prizecommands.Prize;
 import me.metallicgoat.prizecommands.PrizeCommandsPlugin;
 import me.metallicgoat.prizecommands.config.ConfigValue;
@@ -26,7 +25,7 @@ public class PlayTimePrize implements Listener {
                 if(arena.getStatus() == ArenaStatus.RUNNING) {
                     for(Prize prize : ConfigValue.playTimePrizes) {
                         for (Player player : arena.getPlayers())
-                            new EarnPrize(arena, player, prize, null);
+                            prize.earn(arena, player, null);
                     }
                 }else{
                     task.cancel();

@@ -19,7 +19,6 @@ public class PlayerKillPrize implements Listener {
 
     @EventHandler
     public void onFinalKill(PlayerDeathEvent e){
-
         final Player victim = e.getEntity();
         final Arena arena = BedwarsAPI.getGameAPI().getArenaByPlayer(victim);
 
@@ -29,7 +28,6 @@ public class PlayerKillPrize implements Listener {
             final Team team = arena.getPlayerTeam(victim);
             final Team killerTeam = arena.getPlayerTeam(killer);
             final List<Prize> prizes = arena.isBedDestroyed(team) ? ConfigValue.playerFinalKillPrize : ConfigValue.playerKillPrize;
-
             final HashMap<String, String> placeholderReplacements = new HashMap<>();
 
             if (killerTeam != null) {

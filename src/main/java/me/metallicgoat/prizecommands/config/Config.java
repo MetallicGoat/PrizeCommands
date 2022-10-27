@@ -69,18 +69,18 @@ public class Config {
         if(section != null) {
 
             for(String key : section.getKeys(false)){
-                final String beginPath = "Prizes." + key + ".";
+                final ConfigurationSection prizeSection = section.getConfigurationSection(key);
 
-                if(mainConfig.getBoolean(beginPath + "Enabled", false))
+                if(prizeSection == null || !prizeSection.getBoolean("Enabled"))
                     continue;
 
                 final Prize prize = new Prize(
                         key, // Prize id
-                        mainConfig.getString(beginPath + "Permission"),
-                        mainConfig.getStringList(beginPath + "Commands"),
-                        mainConfig.getStringList(beginPath + "Broadcast"),
-                        mainConfig.getStringList(beginPath + "Player-Message"),
-                        mainConfig.getStringList(beginPath + "Supported-Arenas")
+                        prizeSection.getString("Permission"),
+                        prizeSection.getStringList("Commands"),
+                        prizeSection.getStringList("Broadcast"),
+                        prizeSection.getStringList("Player-Message"),
+                        prizeSection.getStringList("Supported-Arenas")
                 );
 
                 prizes.add(prize);
@@ -110,7 +110,6 @@ public class Config {
         ConfigValue.playTimePrizeEnabled = mainConfig.getBoolean("Playtime-Prize.Enabled");
         ConfigValue.playTimeInterval = mainConfig.getLong("Playtime-Prize.Interval");
         ConfigValue.playTimePrizes = buildPrizeList(mainConfig.getStringList("Playtime-Prize.Prizes"));
-
     }
 
     private static List<Prize> buildPrizeList(List<String> stringPrizes){

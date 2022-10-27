@@ -34,7 +34,7 @@ public class Prize {
         this.permission = permission;
         this.commands = commands != null ? commands : new ArrayList<>();
         this.broadcast = broadcast != null ? broadcast : new ArrayList<>();
-        this.privateMessage = privateMessage != null ? broadcast : new ArrayList<>();
+        this.privateMessage = privateMessage != null ? privateMessage : new ArrayList<>();
         this.supportedArenasNames = supportedArenasNames;
 
     }
@@ -54,27 +54,13 @@ public class Prize {
                 && !player.hasPermission(this.getPermission()))
             return;
 
-        runPrizeCommands(player, arena, this.getCommands(), placeholderReplacements);
-        broadcastPrize(player, arena, this.getBroadcast(), placeholderReplacements);
-        sendMessage(player, arena, this.getPrivateMessage(), placeholderReplacements);
-
-    }
-
-    private void runPrizeCommands(Player player, Arena arena, List<String> commands, HashMap<String, String> placeholderReplacements){
         for(String cmd : commands)
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), formatString(player, arena, cmd, placeholderReplacements));
-    }
 
-    private void broadcastPrize(Player player, Arena arena, List<String> broadcast, HashMap<String, String> placeholderReplacements){
         for(String msg : broadcast)
             arena.broadcast(formatMessage(player, arena, msg, placeholderReplacements));
-    }
 
-    private void sendMessage(Player player, Arena arena, List<String> message, HashMap<String, String> placeholderReplacements){
-        if(message.size() == 1 && message.get(0).equals(""))
-            return;
-
-        for(String msg : message)
+        for(String msg : privateMessage)
             player.sendMessage(formatString(player, arena, msg, placeholderReplacements));
     }
 

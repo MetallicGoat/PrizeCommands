@@ -46,7 +46,7 @@ public class LoseWinPrizes implements Listener {
         }
     }
 
-    //Run commands on game end
+    // Run commands on game end
     @EventHandler
     public void onGameEnd(RoundEndEvent e){
         final Arena arena = e.getArena();

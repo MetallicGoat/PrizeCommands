@@ -1,6 +1,5 @@
 package me.metallicgoat.prizecommands;
 
-import de.marcely.bedwars.tools.Helper;
 import me.metallicgoat.prizecommands.events.LoseWinPrizes;
 import me.metallicgoat.prizecommands.events.PlayTimePrize;
 import me.metallicgoat.prizecommands.events.PlayerConnections;
@@ -8,15 +7,9 @@ import me.metallicgoat.prizecommands.events.*;
 import me.metallicgoat.prizecommands.config.Config;
 import me.metallicgoat.prizecommands.util.Metrics;
 import org.bukkit.Bukkit;
-import org.bukkit.Server;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class PrizeCommandsPlugin extends JavaPlugin {
 
@@ -25,7 +18,6 @@ public class PrizeCommandsPlugin extends JavaPlugin {
 
     private static PrizeCommandsAddon addon;
     private static PrizeCommandsPlugin instance;
-    private final Server server = getServer();
 
     public void onEnable() {
         instance = this;
@@ -36,7 +28,7 @@ public class PrizeCommandsPlugin extends JavaPlugin {
         new Metrics(this, 11774);
 
         registerEvents();
-        Config.save();
+        Config.load();
 
         final PluginDescriptionFile pdf = this.getDescription();
 
@@ -50,7 +42,7 @@ public class PrizeCommandsPlugin extends JavaPlugin {
     }
 
     private void registerEvents() {
-        PluginManager manager = this.server.getPluginManager();
+        PluginManager manager = getServer().getPluginManager();
         manager.registerEvents(new PlayerBreakBedPrize(), this);
         manager.registerEvents(new PlayerKillPrize(), this); // Kill & Final Kill
         manager.registerEvents(new PlayTimePrize(), this);
@@ -95,27 +87,6 @@ public class PrizeCommandsPlugin extends JavaPlugin {
         }
 
         return true;
-    }
-
-    public boolean copyResource(String internalPath, File out) throws IOException {
-        if(!out.exists() || out.length() == 0){
-            try(InputStream is = getResource(internalPath)){
-                if(is == null){
-                    getLogger().warning("Your plugin seems to be broken (Failed to find internal file " + internalPath + ")");
-                    return false;
-                }
-
-                out.createNewFile();
-
-                try(FileOutputStream os = new FileOutputStream(out)){
-                    Helper.get().copy(is, os);
-                }
-
-                return true;
-            }
-        }
-
-        return false;
     }
 
     private void log(String ...args) {

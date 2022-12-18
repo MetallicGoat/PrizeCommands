@@ -6,7 +6,7 @@
 
     <groupId>me.metallicgoat</groupId>
     <artifactId>PrizeCommands</artifactId>
-    <version>v3.0.2</version>
+    <version>v3.1.0</version>
 
     <repositories>
         <repository>

@@ -16,25 +16,28 @@ import java.util.*;
 
 public class Prize {
 
-    @Getter private final String prizeId;
-    @Getter private final String permission;
-    @Getter private final List<String> commands;
-    @Getter private final List<String> broadcast;
-    @Getter private final List<String> privateMessage;
-    private final List<String> supportedArenasNames;
+    public final String prizeId;
+    public final String permission;
+    public final List<String> commands;
+    public final List<String> broadcast;
+    public final List<String> privateMessage;
+    public final boolean enabled;
+    public final List<String> supportedArenasNames;
 
     public Prize(String prizeId,
-            String permission,
-            List<String> commands,
-            List<String> broadcast,
-            List<String> privateMessage,
-            List<String> supportedArenasNames) {
+                 String permission,
+                 List<String> commands,
+                 List<String> broadcast,
+                 List<String> privateMessage,
+                 List<String> supportedArenasNames,
+                 boolean enabled) {
 
         this.prizeId = prizeId;
         this.permission = permission;
         this.commands = commands != null ? commands : new ArrayList<>();
         this.broadcast = broadcast != null ? broadcast : new ArrayList<>();
         this.privateMessage = privateMessage != null ? privateMessage : new ArrayList<>();
+        this.enabled = enabled;
         this.supportedArenasNames = supportedArenasNames;
 
     }
@@ -49,9 +52,9 @@ public class Prize {
         if(!supportedArenas.isEmpty() && !supportedArenas.contains(arena))
             return;
 
-        if(this.getPermission() != null
-                && !this.getPermission().equals("")
-                && !player.hasPermission(this.getPermission()))
+        if(this.permission != null
+                && !this.permission.equals("")
+                && !player.hasPermission(permission))
             return;
 
         for(String cmd : commands)

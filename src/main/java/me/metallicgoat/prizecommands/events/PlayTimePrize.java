@@ -22,14 +22,16 @@ public class PlayTimePrize implements Listener {
 
         if(ConfigValue.playTimePrizeEnabled) {
             task = Bukkit.getScheduler().runTaskTimer(PrizeCommandsPlugin.getInstance(), () -> {
-                if(arena.getStatus() == ArenaStatus.RUNNING) {
-                    for(Prize prize : ConfigValue.playTimePrizes) {
-                        for (Player player : arena.getPlayers())
-                            prize.earn(arena, player, null);
-                    }
-                }else{
+                if(arena.getStatus() != ArenaStatus.RUNNING) {
                     task.cancel();
+                    return;
                 }
+
+                for(Prize prize : ConfigValue.playTimePrizes) {
+                    for (Player player : arena.getPlayers())
+                        prize.earn(arena, player, null);
+                }
+
             }, ConfigValue.playTimeInterval, ConfigValue.playTimeInterval);
         }
     }

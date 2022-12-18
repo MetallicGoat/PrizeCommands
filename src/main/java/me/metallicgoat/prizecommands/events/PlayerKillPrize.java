@@ -18,12 +18,12 @@ import java.util.List;
 public class PlayerKillPrize implements Listener {
 
     @EventHandler
-    public void onFinalKill(PlayerDeathEvent e){
-        final Player victim = e.getEntity();
+    public void onFinalKill(PlayerDeathEvent event){
+        final Player victim = event.getEntity();
         final Arena arena = BedwarsAPI.getGameAPI().getArenaByPlayer(victim);
 
-        if (arena != null && e.getEntity().getKiller() != null) {
-            final Player killer = e.getEntity().getKiller();
+        if (arena != null && event.getEntity().getKiller() != null) {
+            final Player killer = event.getEntity().getKiller();
             final Location killerLoc = killer.getLocation();
             final Team team = arena.getPlayerTeam(victim);
             final Team killerTeam = arena.getPlayerTeam(killer);

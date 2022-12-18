@@ -32,18 +32,18 @@ public class LoseWinPrizes implements Listener {
     @EventHandler
     public void onLeaveArena(PlayerQuitArenaEvent e){
         final Arena arena = e.getArena();
-        if(arena.getStatus() == ArenaStatus.RUNNING && arena.getRunningTime() <= time){
+
+        if(arena.getStatus() == ArenaStatus.RUNNING && arena.getRunningTime() <= time)
             playing.get(arena).remove(e.getPlayer());
-        }
     }
 
     // Add players back if they rejoin
     @EventHandler
     public void onRejoin(PlayerRejoinArenaEvent e){
         final Arena arena = e.getArena();
-        if(arena.getStatus() == ArenaStatus.RUNNING && e.getIssues().isEmpty()){
+
+        if(arena.getStatus() == ArenaStatus.RUNNING && e.getIssues().isEmpty())
             playing.get(arena).add(e.getPlayer());
-        }
     }
 
     // Run commands on game end
@@ -53,8 +53,8 @@ public class LoseWinPrizes implements Listener {
         final Collection<Player> activePlayers = playing.get(arena);
 
         if(activePlayers != null && time <= arena.getRunningTime()) {
-
             final HashMap<String, String> placeholderReplacements = new HashMap<>();
+
             if(e.getWinnerTeam() != null) {
                 placeholderReplacements.put("winner-team-name", e.getWinnerTeam().getDisplayName());
                 placeholderReplacements.put("winner-team-color", e.getWinnerTeam().name());
@@ -62,12 +62,10 @@ public class LoseWinPrizes implements Listener {
             }
 
             for(Player player : activePlayers) {
-
                 final List<Prize> endPrize = e.getWinners().contains(player) ? ConfigValue.playerWinPrize : ConfigValue.playerLosePrize;
 
                 for (Prize prize: endPrize)
                     prize.earn(arena, player, placeholderReplacements);
-
             }
         }
         playing.remove(arena);

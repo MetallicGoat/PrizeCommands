@@ -35,6 +35,7 @@ public class PlayerKillPrize implements Listener {
                 placeholderReplacements.put("killer-team-color", killerTeam.getDisplayName());
                 placeholderReplacements.put("killer-team-color-code", "&" + killerTeam.getChatColor().getChar());
             }
+
             placeholderReplacements.put("killer-real-name", killer.getName());
             placeholderReplacements.put("killer-display-name", Helper.get().getPlayerDisplayName(killer));
             placeholderReplacements.put("killer-X", String.valueOf(killerLoc.getX()));

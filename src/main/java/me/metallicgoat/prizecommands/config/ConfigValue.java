@@ -12,6 +12,7 @@ public class ConfigValue {
     public static boolean enabled = false;
     public static List<Prize> allPrizes = buildExampleList("Prize-1", "Prize-2", "Prize-3");
 
+    // Misc Prizes
     public static List<Prize> playerKillPrize = buildExampleList("Prize-1", "Prize-3");
     public static List<Prize> playerFinalKillPrize = buildExampleList("Prize-2", "Prize-3");
     public static List<Prize> playerBreakBreakBedPrize = buildExampleList("Prize-1");

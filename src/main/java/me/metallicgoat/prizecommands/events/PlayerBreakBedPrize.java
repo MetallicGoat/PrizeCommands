@@ -28,6 +28,5 @@ public class PlayerBreakBedPrize implements Listener {
 
         for(Prize prize : ConfigValue.playerBreakBreakBedPrize)
             prize.earn(arena, player, placeholderReplacements);
-
     }
 }

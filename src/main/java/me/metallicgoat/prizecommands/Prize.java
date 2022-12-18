@@ -7,7 +7,6 @@ import de.marcely.bedwars.api.arena.picker.ArenaPickerAPI;
 import de.marcely.bedwars.api.exception.ArenaConditionParseException;
 import de.marcely.bedwars.api.message.Message;
 import de.marcely.bedwars.tools.Helper;
-import lombok.Getter;
 import me.metallicgoat.prizecommands.config.ConfigValue;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -39,40 +38,39 @@ public class Prize {
         this.privateMessage = privateMessage != null ? privateMessage : new ArrayList<>();
         this.enabled = enabled;
         this.supportedArenasNames = supportedArenasNames;
-
     }
 
-    public void earn(Arena arena, Player player, HashMap<String, String> placeholderReplacements){
-        if(!ConfigValue.enabled)
+    public void earn(Arena arena, Player player, HashMap<String, String> placeholderReplacements) {
+        if (!ConfigValue.enabled)
             return;
 
         final List<Arena> supportedArenas = this.getSupportedArenas();
 
         // Only run prize for supported arenas (or all arenas if empty list)
-        if(!supportedArenas.isEmpty() && !supportedArenas.contains(arena))
+        if (!supportedArenas.isEmpty() && !supportedArenas.contains(arena))
             return;
 
-        if(this.permission != null
+        if (this.permission != null
                 && !this.permission.equals("")
                 && !player.hasPermission(permission))
             return;
 
-        for(String cmd : commands)
+        for (String cmd : commands)
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), formatString(player, arena, cmd, placeholderReplacements));
 
-        for(String msg : broadcast)
+        for (String msg : broadcast)
             arena.broadcast(formatMessage(player, arena, msg, placeholderReplacements));
 
-        for(String msg : privateMessage)
+        for (String msg : privateMessage)
             player.sendMessage(formatString(player, arena, msg, placeholderReplacements));
     }
 
-    private String formatString(Player player, Arena arena, String string, HashMap<String, String> placeholderReplacements){
+    private String formatString(Player player, Arena arena, String string, HashMap<String, String> placeholderReplacements) {
         return formatMessage(player, arena, string, placeholderReplacements).done();
     }
 
 
-    private Message formatMessage(Player player, Arena arena, String string, HashMap<String, String> placeholderReplacements){
+    private Message formatMessage(Player player, Arena arena, String string, HashMap<String, String> placeholderReplacements) {
         final Message formattedString = Message.build(string);
 
         // Placeholder values (Supported by EVERY prize)
@@ -101,31 +99,33 @@ public class Prize {
                 .placeholder("player-z", playerZ);
 
         // Translate event specific placeholders
-        if(placeholderReplacements != null) {
-            for (Map.Entry<String, String> stringSet : placeholderReplacements.entrySet()) {
+        if (placeholderReplacements != null) {
+            for (Map.Entry<String, String> stringSet : placeholderReplacements.entrySet())
                 formattedString.placeholder(stringSet.getKey(), stringSet.getValue());
-            }
         }
+
         return formattedString;
     }
 
-    public List<Arena> getSupportedArenas(){
+    public List<Arena> getSupportedArenas() {
         final List<Arena> supportedArenas = new ArrayList<>();
 
-        if(supportedArenasNames == null)
+        if (supportedArenasNames == null)
             return new ArrayList<>();
 
-        for(String arenaName : supportedArenasNames){
+        for (String arenaName : supportedArenasNames) {
             final Arena arena = GameAPI.get().getArenaByName(arenaName);
-            if(arena != null)
-                supportedArenas.add(arena);
-            else {
-                try {
-                    final Collection<Arena> arenaList = ArenaPickerAPI.get().getArenasByCondition(arenaName);
-                    supportedArenas.addAll(arenaList);
-                } catch (ArenaConditionParseException ignored) {
 
-                }
+            if (arena != null) {
+                supportedArenas.add(arena);
+                continue;
+            }
+
+            try {
+                final Collection<Arena> arenaList = ArenaPickerAPI.get().getArenasByCondition(arenaName);
+                supportedArenas.addAll(arenaList);
+            } catch (ArenaConditionParseException ignored) {
+
             }
         }
 

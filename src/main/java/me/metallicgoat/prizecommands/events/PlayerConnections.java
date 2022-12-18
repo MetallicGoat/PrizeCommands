@@ -19,7 +19,6 @@ public class PlayerConnections implements Listener {
 
         for(Prize prize : ConfigValue.playerJoinArenaPrize)
             prize.earn(arena, player, null);
-
     }
 
     @EventHandler
@@ -29,7 +28,6 @@ public class PlayerConnections implements Listener {
 
         for(Prize prize : ConfigValue.playerLeaveArenaPrize)
             prize.earn(arena, player, null);
-
     }
 
     @EventHandler
@@ -39,6 +37,5 @@ public class PlayerConnections implements Listener {
 
         for(Prize prize : ConfigValue.playerRejoinArenaPrize)
             prize.earn(arena, player, null);
-
     }
 }

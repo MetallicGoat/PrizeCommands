@@ -21,6 +21,5 @@ public class AchievementEarnPrize implements Listener {
 
         for(Prize prize : ConfigValue.playerLeaveArenaPrize)
             prize.earn(arena, player, null);
-
     }
 }

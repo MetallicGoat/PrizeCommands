@@ -6,7 +6,7 @@
 
     <groupId>me.metallicgoat</groupId>
     <artifactId>PrizeCommands</artifactId>
-    <version>v3.1.0</version>
+    <version>3.2.0</version>
 
     <repositories>
         <repository>
@@ -29,7 +29,7 @@
         <dependency>
             <groupId>de.marcely.bedwars</groupId>
             <artifactId>API</artifactId>
-            <version>5.1</version>
+            <version>5.3.2</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

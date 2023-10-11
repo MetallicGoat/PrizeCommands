@@ -12,21 +12,21 @@ import org.bukkit.event.Listener;
 import java.util.HashMap;
 
 public class PlayerBreakBedPrize implements Listener {
-    @EventHandler
-    public void onBedDestroy(ArenaBedBreakEvent e){
-        if(!e.isPlayerCaused())
-            return;
+	@EventHandler
+	public void onBedDestroy(ArenaBedBreakEvent e) {
+		if (!e.isPlayerCaused())
+			return;
 
-        final HashMap<String, String> placeholderReplacements = new HashMap<>();
-        final Player player = e.getPlayer();
-        final Arena arena = e.getArena();
-        final Team team = e.getTeam();
+		final HashMap<String, String> placeholderReplacements = new HashMap<>();
+		final Player player = e.getPlayer();
+		final Arena arena = e.getArena();
+		final Team team = e.getTeam();
 
-        placeholderReplacements.put("destroyed-team-name", team.getDisplayName());
-        placeholderReplacements.put("destroyed-team-color", team.name());
-        placeholderReplacements.put("destroyed-team-color-code", "&" + team.getChatColor().getChar());
+		placeholderReplacements.put("destroyed-team-name", team.getDisplayName());
+		placeholderReplacements.put("destroyed-team-color", team.name());
+		placeholderReplacements.put("destroyed-team-color-code", "&" + team.getChatColor().getChar());
 
-        for(Prize prize : ConfigValue.playerBreakBreakBedPrize)
-            prize.earn(arena, player, placeholderReplacements);
-    }
+		for (Prize prize : ConfigValue.playerBreakBreakBedPrize)
+			prize.earn(arena, player, placeholderReplacements);
+	}
 }

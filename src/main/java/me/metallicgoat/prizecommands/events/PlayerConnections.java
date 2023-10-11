@@ -12,30 +12,30 @@ import org.bukkit.event.Listener;
 
 public class PlayerConnections implements Listener {
 
-    @EventHandler
-    public void onPlayerJoinArena(PlayerJoinArenaEvent event){
-        final Arena arena = event.getArena();
-        final Player player = event.getPlayer();
+	@EventHandler
+	public void onPlayerJoinArena(PlayerJoinArenaEvent event) {
+		final Arena arena = event.getArena();
+		final Player player = event.getPlayer();
 
-        for(Prize prize : ConfigValue.playerJoinArenaPrize)
-            prize.earn(arena, player, null);
-    }
+		for (Prize prize : ConfigValue.playerJoinArenaPrize)
+			prize.earn(arena, player, null);
+	}
 
-    @EventHandler
-    public void onPlayerLeaveArena(PlayerQuitArenaEvent event){
-        final Arena arena = event.getArena();
-        final Player player = event.getPlayer();
+	@EventHandler
+	public void onPlayerLeaveArena(PlayerQuitArenaEvent event) {
+		final Arena arena = event.getArena();
+		final Player player = event.getPlayer();
 
-        for(Prize prize : ConfigValue.playerLeaveArenaPrize)
-            prize.earn(arena, player, null);
-    }
+		for (Prize prize : ConfigValue.playerLeaveArenaPrize)
+			prize.earn(arena, player, null);
+	}
 
-    @EventHandler
-    public void onPlayerRejoinArena(PlayerRejoinArenaEvent event){
-        final Arena arena = event.getArena();
-        final Player player = event.getPlayer();
+	@EventHandler
+	public void onPlayerRejoinArena(PlayerRejoinArenaEvent event) {
+		final Arena arena = event.getArena();
+		final Player player = event.getPlayer();
 
-        for(Prize prize : ConfigValue.playerRejoinArenaPrize)
-            prize.earn(arena, player, null);
-    }
+		for (Prize prize : ConfigValue.playerRejoinArenaPrize)
+			prize.earn(arena, player, null);
+	}
 }

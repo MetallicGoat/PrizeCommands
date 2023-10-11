@@ -18,7 +18,7 @@ public class GameStartPrize implements Listener {
 		final Arena arena = event.getArena();
 
 		for (Player player : arena.getPlayers())
-			for(Prize prize : ConfigValue.playerStartGamePrize)
+			for (Prize prize : ConfigValue.playerStartGamePrize)
 				prize.earn(arena, player, null);
 
 	}

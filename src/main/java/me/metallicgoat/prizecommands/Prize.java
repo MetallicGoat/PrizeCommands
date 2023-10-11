@@ -18,6 +18,7 @@ public class Prize {
     public final String prizeId;
     public final String permission;
     public final List<String> commands;
+    public final List<String> playerCommands;
     public final List<String> broadcast;
     public final List<String> privateMessage;
     public final boolean enabled;
@@ -26,14 +27,17 @@ public class Prize {
     public Prize(String prizeId,
                  String permission,
                  List<String> commands,
+                 List<String> playerCommands,
                  List<String> broadcast,
                  List<String> privateMessage,
                  List<String> supportedArenasNames,
-                 boolean enabled) {
+                 boolean enabled)
+    {
 
         this.prizeId = prizeId;
         this.permission = permission;
         this.commands = commands != null ? commands : new ArrayList<>();
+        this.playerCommands = playerCommands != null ? playerCommands : new ArrayList<>();
         this.broadcast = broadcast != null ? broadcast : new ArrayList<>();
         this.privateMessage = privateMessage != null ? privateMessage : new ArrayList<>();
         this.enabled = enabled;
@@ -51,12 +55,15 @@ public class Prize {
             return;
 
         if (this.permission != null
-                && !this.permission.equals("")
+                && !this.permission.isEmpty()
                 && !player.hasPermission(permission))
             return;
 
         for (String cmd : commands)
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), formatString(player, arena, cmd, placeholderReplacements));
+
+        for (String cmd : playerCommands)
+            player.performCommand(formatString(player, arena, cmd, placeholderReplacements));
 
         for (String msg : broadcast)
             arena.broadcast(formatMessage(player, arena, msg, placeholderReplacements));

@@ -1,5 +1,6 @@
 package me.metallicgoat.prizecommands;
 
+import lombok.Getter;
 import me.metallicgoat.prizecommands.events.LoseWinPrizes;
 import me.metallicgoat.prizecommands.events.PlayTimePrize;
 import me.metallicgoat.prizecommands.events.PlayerConnections;
@@ -16,7 +17,9 @@ public class PrizeCommandsPlugin extends JavaPlugin {
     public static final int MIN_MBEDWARS_API_VER = 15;
     public static final String MIN_MBEDWARS_VER_NAME = "5.1";
 
+    @Getter
     private static PrizeCommandsAddon addon;
+    @Getter
     private static PrizeCommandsPlugin instance;
 
     public void onEnable() {
@@ -49,14 +52,7 @@ public class PrizeCommandsPlugin extends JavaPlugin {
         manager.registerEvents(new LoseWinPrizes(), this);
         manager.registerEvents(new PlayerConnections(), this); // Join & Leave & Rejoin
         manager.registerEvents(new AchievementEarnPrize(), this);
-    }
-
-    public static PrizeCommandsPlugin getInstance() {
-        return instance;
-    }
-
-    public static PrizeCommandsAddon getAddon() {
-        return addon;
+        manager.registerEvents(new GameStartPrize(), this);
     }
 
     private boolean checkMBedwars(){

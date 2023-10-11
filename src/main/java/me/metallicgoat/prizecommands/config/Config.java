@@ -63,6 +63,7 @@ public class Config {
                         key, // Prize id
                         prizeSection.getString("Permission"),
                         prizeSection.getStringList("Commands"),
+                        prizeSection.getStringList("Player-Commands"),
                         prizeSection.getStringList("Broadcast"),
                         prizeSection.getStringList("Player-Message"),
                         prizeSection.getStringList("Supported-Arenas"),
@@ -83,7 +84,8 @@ public class Config {
         ConfigValue.playerFinalKillPrize = buildPrizeList(config.getStringList("Final-Kill-Prizes"));
         ConfigValue.playerBreakBreakBedPrize = buildPrizeList(config.getStringList("Bed-Break-Prizes"));
         ConfigValue.playerEarnAchievementPrize = buildPrizeList(config.getStringList("Earn-Achievement-Prizes"));
-        ConfigValue.playerJoinArenaPrize= buildPrizeList(config.getStringList("Join-Arena-Prizes"));
+        ConfigValue.playerJoinArenaPrize = buildPrizeList(config.getStringList("Join-Arena-Prizes"));
+        ConfigValue.playerStartGamePrize = buildPrizeList(config.getStringList("Start-Game-Prizes"));
         ConfigValue.playerLeaveArenaPrize = buildPrizeList(config.getStringList("Leave-Arena-Prizes"));
         ConfigValue.playerRejoinArenaPrize = buildPrizeList(config.getStringList("Rejoin-Arena-Prizes"));
 
@@ -129,14 +131,14 @@ public class Config {
         config.set("Bed-Break-Prizes", buildPrizeIdList(ConfigValue.playerBreakBreakBedPrize));
         config.set("Earn-Achievement-Prizes", buildPrizeIdList(ConfigValue.playerEarnAchievementPrize));
         config.set("Join-Arena-Prizes", buildPrizeIdList(ConfigValue.playerJoinArenaPrize));
+        config.set("Start-Game-Prizes", buildPrizeIdList(ConfigValue.playerStartGamePrize));
         config.set("Leave-Arena-Prizes", buildPrizeIdList(ConfigValue.playerLeaveArenaPrize));
         config.set("Rejoin-Arena-Prizes", buildPrizeIdList(ConfigValue.playerRejoinArenaPrize));
 
         config.addEmptyLine();
 
         config.addComment("Minimum-Time = Minimum time a player must play to be eligible for this prize (in ticks)");
-        //config.set("Playtime-Prize.Enabled", ConfigValue.playTimePrizeEnabled);
-        config.set("End-Game-Prizes.Interval", ConfigValue.minimumPlayTime);
+        config.set("End-Game-Prizes.Minimum-Time", ConfigValue.minimumPlayTime);
         config.set("End-Game-Prizes.Win-Prizes", buildPrizeIdList(ConfigValue.playerWinPrize));
         config.set("End-Game-Prizes.Lose-Prizes", buildPrizeIdList(ConfigValue.playerLosePrize));
 
@@ -157,6 +159,7 @@ public class Config {
             config.set(path + "Enabled", prize.enabled);
             config.set(path + "Permission", prize.permission);
             config.set(path + "Commands", prize.commands);
+            config.set(path + "Player-Commands", prize.playerCommands);
             config.set(path + "Broadcast", prize.broadcast);
             config.set(path + "Player-Message", prize.privateMessage);
             config.set(path + "Supported-Arenas", prize.supportedArenasNames);

@@ -14,6 +14,8 @@ You can add a prize to your config like this:
     Permission: ''
     Commands:
       - ''
+    Player-Commands:
+      - ''
     Broadcast:
       - ''
     Player-Message:
@@ -34,6 +36,9 @@ Using the identifier you can set this prize to run on certain events.
 
 ---
 `Commands` Command(s) that get executed as console when the prize is triggered.
+
+---
+`Player-Commands` Command(s) that get executed as the player when the prize is triggered.
 
 ---
 `Broadcast` Message(s) broadcasted to every player in an arena when a prize is triggered.

@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -20,7 +21,6 @@ import java.util.List;
 public class LoseWinPrizes implements Listener {
 
 	private final HashMap<Arena, List<Player>> playing = new HashMap<>();
-	private final long time = ConfigValue.minimumPlayTime;
 
 	// Add players to map on round start
 	@EventHandler
@@ -33,7 +33,7 @@ public class LoseWinPrizes implements Listener {
 	public void onLeaveArena(PlayerQuitArenaEvent e) {
 		final Arena arena = e.getArena();
 
-		if (arena.getStatus() == ArenaStatus.RUNNING && arena.getRunningTime() <= time)
+		if (arena.getStatus() == ArenaStatus.RUNNING && isPastMinPlayTime(arena))
 			playing.get(arena).remove(e.getPlayer());
 	}
 
@@ -52,13 +52,13 @@ public class LoseWinPrizes implements Listener {
 		final Arena arena = e.getArena();
 		final Collection<Player> activePlayers = playing.get(arena);
 
-		if (activePlayers != null && time <= arena.getRunningTime()) {
+		if (activePlayers != null && isPastMinPlayTime(arena)) {
 			final HashMap<String, String> placeholderReplacements = new HashMap<>();
 
 			if (e.getWinnerTeam() != null) {
 				placeholderReplacements.put("winner-team-name", e.getWinnerTeam().getDisplayName());
 				placeholderReplacements.put("winner-team-color", e.getWinnerTeam().name());
-				placeholderReplacements.put("winner-team-color-code", "&" + e.getWinnerTeam().getChatColor().getChar());
+				placeholderReplacements.put("winner-team-color-code", e.getWinnerTeam().getBungeeChatColor().toString());
 			}
 
 			for (Player player : activePlayers) {
@@ -70,4 +70,10 @@ public class LoseWinPrizes implements Listener {
 		}
 		playing.remove(arena);
 	}
+
+	private boolean isPastMinPlayTime(Arena arena) {
+		final Duration duration = arena.getRunningTime();
+
+    return duration != null && duration.toMillis() / 50 >= ConfigValue.minimumPlayTime;
+  }
 }

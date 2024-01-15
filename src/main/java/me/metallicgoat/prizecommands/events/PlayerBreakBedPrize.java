@@ -24,7 +24,7 @@ public class PlayerBreakBedPrize implements Listener {
 
 		placeholderReplacements.put("destroyed-team-name", team.getDisplayName());
 		placeholderReplacements.put("destroyed-team-color", team.name());
-		placeholderReplacements.put("destroyed-team-color-code", "&" + team.getChatColor().getChar());
+		placeholderReplacements.put("destroyed-team-color-code", team.getBungeeChatColor().toString());
 
 		for (Prize prize : ConfigValue.playerBreakBreakBedPrize)
 			prize.earn(arena, player, placeholderReplacements);

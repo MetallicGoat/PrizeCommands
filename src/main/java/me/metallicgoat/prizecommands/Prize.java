@@ -8,6 +8,7 @@ import de.marcely.bedwars.api.exception.ArenaConditionParseException;
 import de.marcely.bedwars.api.message.Message;
 import de.marcely.bedwars.tools.Helper;
 import me.metallicgoat.prizecommands.config.ConfigValue;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -83,7 +84,7 @@ public class Prize {
 		final Team team = arena.getPlayerTeam(player);
 		final String teamName = team != null ? team.getDisplayName() : "";
 		final String teamColor = team != null ? team.name() : "";
-		final String teamColorCode = team != null ? "&" + team.getChatColor().getChar() : "";
+		final String teamColorCode = team != null ? team.getBungeeChatColor().toString() : "";
 		final String arenaName = arena.getDisplayName();
 		final String arenaWorld = arena.getGameWorld() != null ? arena.getGameWorld().getName() : "";
 		final String playerRealName = player.getName();

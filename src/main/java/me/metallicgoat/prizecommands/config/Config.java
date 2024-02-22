@@ -62,11 +62,11 @@ public class Config {
 				final Prize prize = new Prize(
 						key, // Prize id
 						prizeSection.getString("Permission"),
-						prizeSection.getStringList("Commands"),
-						prizeSection.getStringList("Player-Commands"),
-						prizeSection.getStringList("Broadcast"),
-						prizeSection.getStringList("Player-Message"),
-						prizeSection.getStringList("Supported-Arenas"),
+						getStringList(prizeSection, "Commands"),
+						getStringList(prizeSection, "Player-Commands"),
+						getStringList(prizeSection, "Broadcast"),
+						getStringList(prizeSection, "Player-Message"),
+						getStringList(prizeSection, "Supported-Arenas"),
 						prizeSection.getBoolean("Enabled")
 				);
 
@@ -158,11 +158,21 @@ public class Config {
 
 			config.set(path + "Enabled", prize.enabled);
 			config.set(path + "Permission", prize.permission);
-			config.set(path + "Commands", prize.commands);
-			config.set(path + "Player-Commands", prize.playerCommands);
-			config.set(path + "Broadcast", prize.broadcast);
-			config.set(path + "Player-Message", prize.privateMessage);
-			config.set(path + "Supported-Arenas", prize.supportedArenasNames);
+
+			if (prize.commands != null)
+				config.set(path + "Commands", prize.commands);
+
+			if (prize.playerCommands != null)
+				config.set(path + "Player-Commands", prize.playerCommands);
+
+			if (prize.broadcast != null)
+				config.set(path + "Broadcast", prize.broadcast);
+
+			if (prize.privateMessage != null)
+				config.set(path + "Player-Message", prize.privateMessage);
+
+			if (prize.supportedArenasNames != null)
+				config.set(path + "Supported-Arenas", prize.supportedArenasNames);
 		}
 
 		config.save(getFile());
@@ -170,6 +180,28 @@ public class Config {
 
 	public static void loadOldConfigs(FileConfiguration config) {
 		// Nothing here yet :)
+	}
+
+	// Returns null if the string list is empty
+	private static List<String> getStringList(ConfigurationSection section, String path) {
+		final List<String> strings = section.getStringList(path);
+
+		if (strings == null)
+			return null;
+
+		boolean emptyList = true;
+
+		for (String string : strings) {
+			if (!string.isEmpty()) {
+				emptyList = false;
+				break;
+			}
+		}
+
+		if (emptyList)
+			return null;
+
+		return strings;
 	}
 
 	private static List<String> buildPrizeIdList(List<Prize> prizes) {

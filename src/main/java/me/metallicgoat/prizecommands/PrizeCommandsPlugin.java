@@ -43,6 +43,7 @@ public class PrizeCommandsPlugin extends JavaPlugin {
 
 	private void registerEvents() {
 		PluginManager manager = getServer().getPluginManager();
+
 		manager.registerEvents(new PlayerBreakBedPrize(), this);
 		manager.registerEvents(new PlayerKillPrize(), this); // Kill & Final Kill
 		manager.registerEvents(new PlayTimePrize(), this);

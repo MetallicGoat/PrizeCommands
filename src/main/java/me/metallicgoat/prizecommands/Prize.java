@@ -48,6 +48,16 @@ public class Prize {
   }
 
   public void earn(Arena arena, Player player, Map<String, String> placeholderReplacements) {
+    if (Bukkit.isPrimaryThread()) {
+      earnUnsafe(arena, player, placeholderReplacements);
+    } else {
+      Bukkit.getScheduler().runTask(PrizeCommandsPlugin.getInstance(), () ->
+          earnUnsafe(arena, player, placeholderReplacements)
+      );
+    }
+  }
+
+  private void earnUnsafe(Arena arena, Player player, Map<String, String> placeholderReplacements) {
     if (!ConfigValue.enabled)
       return;
 

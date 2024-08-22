@@ -17,34 +17,34 @@ import java.util.List;
 
 public class PlayerKillPrize implements Listener {
 
-	@EventHandler
-	public void onFinalKill(PlayerDeathEvent event) {
-		final Player victim = event.getEntity();
-		final Arena arena = BedwarsAPI.getGameAPI().getArenaByPlayer(victim);
+  @EventHandler
+  public void onFinalKill(PlayerDeathEvent event) {
+    final Player victim = event.getEntity();
+    final Arena arena = BedwarsAPI.getGameAPI().getArenaByPlayer(victim);
 
-		if (arena != null && event.getEntity().getKiller() != null) {
-			final Player killer = event.getEntity().getKiller();
-			final Location killerLoc = killer.getLocation();
-			final Team team = arena.getPlayerTeam(victim);
-			final Team killerTeam = arena.getPlayerTeam(killer);
-			final List<Prize> prizes = arena.isBedDestroyed(team) ? ConfigValue.playerFinalKillPrize : ConfigValue.playerKillPrize;
-			final HashMap<String, String> placeholderReplacements = new HashMap<>();
+    if (arena != null && event.getEntity().getKiller() != null) {
+      final Player killer = event.getEntity().getKiller();
+      final Location killerLoc = killer.getLocation();
+      final Team team = arena.getPlayerTeam(victim);
+      final Team killerTeam = arena.getPlayerTeam(killer);
+      final List<Prize> prizes = arena.isBedDestroyed(team) ? ConfigValue.playerFinalKillPrize : ConfigValue.playerKillPrize;
+      final HashMap<String, String> placeholderReplacements = new HashMap<>();
 
-			if (killerTeam != null) {
-				placeholderReplacements.put("killer-team-name", killerTeam.getDisplayName());
-				placeholderReplacements.put("killer-team-color", killerTeam.getDisplayName());
-				placeholderReplacements.put("killer-team-color-code", killerTeam.getBungeeChatColor().toString());
-			}
+      if (killerTeam != null) {
+        placeholderReplacements.put("killer-team-name", killerTeam.getDisplayName());
+        placeholderReplacements.put("killer-team-color", killerTeam.getDisplayName());
+        placeholderReplacements.put("killer-team-color-code", killerTeam.getBungeeChatColor().toString());
+      }
 
-			placeholderReplacements.put("killer-real-name", killer.getName());
-			placeholderReplacements.put("killer-display-name", Helper.get().getPlayerDisplayName(killer));
-			placeholderReplacements.put("killer-X", String.valueOf(killerLoc.getX()));
-			placeholderReplacements.put("killer-y", String.valueOf(killerLoc.getY()));
-			placeholderReplacements.put("killer-z", String.valueOf(killerLoc.getZ()));
+      placeholderReplacements.put("killer-real-name", killer.getName());
+      placeholderReplacements.put("killer-display-name", Helper.get().getPlayerDisplayName(killer));
+      placeholderReplacements.put("killer-X", String.valueOf(killerLoc.getX()));
+      placeholderReplacements.put("killer-y", String.valueOf(killerLoc.getY()));
+      placeholderReplacements.put("killer-z", String.valueOf(killerLoc.getZ()));
 
-			for (Prize prize : prizes)
-				prize.earn(arena, killer, placeholderReplacements);
+      for (Prize prize : prizes)
+        prize.earn(arena, killer, placeholderReplacements);
 
-		}
-	}
+    }
+  }
 }

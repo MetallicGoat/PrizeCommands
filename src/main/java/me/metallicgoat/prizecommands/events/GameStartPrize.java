@@ -10,16 +10,16 @@ import org.bukkit.event.Listener;
 
 public class GameStartPrize implements Listener {
 
-	@EventHandler
-	public void onRoundStart(RoundStartEvent event) {
-		if (ConfigValue.playerStartGamePrize.isEmpty())
-			return;
+  @EventHandler
+  public void onRoundStart(RoundStartEvent event) {
+    if (ConfigValue.playerStartGamePrize.isEmpty())
+      return;
 
-		final Arena arena = event.getArena();
+    final Arena arena = event.getArena();
 
-		for (Player player : arena.getPlayers())
-			for (Prize prize : ConfigValue.playerStartGamePrize)
-				prize.earn(arena, player, null);
+    for (Player player : arena.getPlayers())
+      for (Prize prize : ConfigValue.playerStartGamePrize)
+        prize.earn(arena, player, null);
 
-	}
+  }
 }

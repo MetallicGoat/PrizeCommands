@@ -14,25 +14,25 @@ import org.bukkit.scheduler.BukkitTask;
 
 public class PlayTimePrize implements Listener {
 
-	private BukkitTask task;
+  private BukkitTask task;
 
-	@EventHandler
-	public void onRoundStart(RoundStartEvent e) {
-		final Arena arena = e.getArena();
+  @EventHandler
+  public void onRoundStart(RoundStartEvent e) {
+    final Arena arena = e.getArena();
 
-		if (ConfigValue.playTimePrizeEnabled) {
-			task = Bukkit.getScheduler().runTaskTimer(PrizeCommandsPlugin.getInstance(), () -> {
-				if (arena.getStatus() != ArenaStatus.RUNNING) {
-					task.cancel();
-					return;
-				}
+    if (ConfigValue.playTimePrizeEnabled) {
+      task = Bukkit.getScheduler().runTaskTimer(PrizeCommandsPlugin.getInstance(), () -> {
+        if (arena.getStatus() != ArenaStatus.RUNNING) {
+          task.cancel();
+          return;
+        }
 
-				for (Prize prize : ConfigValue.playTimePrizes) {
-					for (Player player : arena.getPlayers())
-						prize.earn(arena, player, null);
-				}
+        for (Prize prize : ConfigValue.playTimePrizes) {
+          for (Player player : arena.getPlayers())
+            prize.earn(arena, player, null);
+        }
 
-			}, ConfigValue.playTimeInterval, ConfigValue.playTimeInterval);
-		}
-	}
+      }, ConfigValue.playTimeInterval, ConfigValue.playTimeInterval);
+    }
+  }
 }

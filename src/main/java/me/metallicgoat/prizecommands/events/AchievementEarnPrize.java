@@ -11,15 +11,15 @@ import org.bukkit.event.Listener;
 
 public class AchievementEarnPrize implements Listener {
 
-	@EventHandler
-	public void onPlayerLeaveArena(PlayerEarnAchievementEvent event) {
-		final Player player = event.getPlayer();
-		final Arena arena = GameAPI.get().getArenaByPlayer(player);
+  @EventHandler
+  public void onPlayerLeaveArena(PlayerEarnAchievementEvent event) {
+    final Player player = event.getPlayer();
+    final Arena arena = GameAPI.get().getArenaByPlayer(player);
 
-		if (arena == null)
-			return;
+    if (arena == null)
+      return;
 
-		for (Prize prize : ConfigValue.playerLeaveArenaPrize)
-			prize.earn(arena, player, null);
-	}
+    for (Prize prize : ConfigValue.playerLeaveArenaPrize)
+      prize.earn(arena, player, null);
+  }
 }

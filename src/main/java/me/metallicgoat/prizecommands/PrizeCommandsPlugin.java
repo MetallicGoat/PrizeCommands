@@ -11,80 +11,80 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class PrizeCommandsPlugin extends JavaPlugin {
 
-	public static final int MIN_MBEDWARS_API_VER = 100;
-	public static final String MIN_MBEDWARS_VER_NAME = "5.4";
+  public static final int MIN_MBEDWARS_API_VER = 100;
+  public static final String MIN_MBEDWARS_VER_NAME = "5.4";
 
-	@Getter
-	private static PrizeCommandsAddon addon;
-	@Getter
-	private static PrizeCommandsPlugin instance;
+  @Getter
+  private static PrizeCommandsAddon addon;
+  @Getter
+  private static PrizeCommandsPlugin instance;
 
-	public void onEnable() {
-		instance = this;
+  public void onEnable() {
+    instance = this;
 
-		if (!checkMBedwars()) return;
-		if (!registerAddon()) return;
+    if (!checkMBedwars()) return;
+    if (!registerAddon()) return;
 
-		new Metrics(this, 11774);
+    new Metrics(this, 11774);
 
-		registerEvents();
-		Config.load();
+    registerEvents();
+    Config.load();
 
-		final PluginDescriptionFile pdf = this.getDescription();
+    final PluginDescriptionFile pdf = this.getDescription();
 
-		log(
-				"------------------------------",
-				pdf.getName() + " For MBedwars",
-				"By: " + pdf.getAuthors(),
-				"Version: " + pdf.getVersion(),
-				"------------------------------"
-		);
-	}
+    log(
+        "------------------------------",
+        pdf.getName() + " For MBedwars",
+        "By: " + pdf.getAuthors(),
+        "Version: " + pdf.getVersion(),
+        "------------------------------"
+    );
+  }
 
-	private void registerEvents() {
-		PluginManager manager = getServer().getPluginManager();
+  private void registerEvents() {
+    PluginManager manager = getServer().getPluginManager();
 
-		manager.registerEvents(new PlayerBreakBedPrize(), this);
-		manager.registerEvents(new PlayerKillPrize(), this); // Kill & Final Kill
-		manager.registerEvents(new PlayTimePrize(), this);
-		manager.registerEvents(new LoseWinPrizes(), this);
-		manager.registerEvents(new PlayerConnections(), this); // Join & Leave & Rejoin
-		manager.registerEvents(new AchievementEarnPrize(), this);
-		manager.registerEvents(new GameStartPrize(), this);
-	}
+    manager.registerEvents(new PlayerBreakBedPrize(), this);
+    manager.registerEvents(new PlayerKillPrize(), this); // Kill & Final Kill
+    manager.registerEvents(new PlayTimePrize(), this);
+    manager.registerEvents(new LoseWinPrizes(), this);
+    manager.registerEvents(new PlayerConnections(), this); // Join & Leave & Rejoin
+    manager.registerEvents(new AchievementEarnPrize(), this);
+    manager.registerEvents(new GameStartPrize(), this);
+  }
 
-	private boolean checkMBedwars() {
-		try {
-			final Class<?> apiClass = Class.forName("de.marcely.bedwars.api.BedwarsAPI");
-			final int apiVersion = (int) apiClass.getMethod("getAPIVersion").invoke(null);
+  private boolean checkMBedwars() {
+    try {
+      final Class<?> apiClass = Class.forName("de.marcely.bedwars.api.BedwarsAPI");
+      final int apiVersion = (int) apiClass.getMethod("getAPIVersion").invoke(null);
 
-			if (apiVersion < MIN_MBEDWARS_API_VER)
-				throw new IllegalStateException();
-		} catch (Exception e) {
-			getLogger().warning("Sorry, your installed version of MBedwars is not supported. Please install at least v" + MIN_MBEDWARS_VER_NAME);
-			Bukkit.getPluginManager().disablePlugin(this);
+      if (apiVersion < MIN_MBEDWARS_API_VER)
+        throw new IllegalStateException();
+    } catch (Exception e) {
+      getLogger().warning("Sorry, your installed version of MBedwars is not supported. Please install at least v" + MIN_MBEDWARS_VER_NAME);
+      Bukkit.getPluginManager().disablePlugin(this);
 
-			return false;
-		}
+      return false;
+    }
 
-		return true;
-	}
+    return true;
+  }
 
-	private boolean registerAddon() {
-		addon = new PrizeCommandsAddon(this);
+  private boolean registerAddon() {
+    addon = new PrizeCommandsAddon(this);
 
-		if (!addon.register()) {
-			getLogger().warning("It seems like this addon has already been loaded. Please delete duplicates and try again.");
-			Bukkit.getPluginManager().disablePlugin(this);
+    if (!addon.register()) {
+      getLogger().warning("It seems like this addon has already been loaded. Please delete duplicates and try again.");
+      Bukkit.getPluginManager().disablePlugin(this);
 
-			return false;
-		}
+      return false;
+    }
 
-		return true;
-	}
+    return true;
+  }
 
-	private void log(String... args) {
-		for (String s : args)
-			getLogger().info(s);
-	}
+  private void log(String... args) {
+    for (String s : args)
+      getLogger().info(s);
+  }
 }

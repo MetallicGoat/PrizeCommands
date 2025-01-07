@@ -12,7 +12,7 @@ import org.bukkit.event.Listener;
 public class AchievementEarnPrize implements Listener {
 
   @EventHandler
-  public void onPlayerLeaveArena(PlayerEarnAchievementEvent event) {
+  public void onPlayerEarnAchievement(PlayerEarnAchievementEvent event) {
     final Player player = event.getPlayer();
     final Arena arena = GameAPI.get().getArenaByPlayer(player);
 

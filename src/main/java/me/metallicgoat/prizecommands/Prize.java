@@ -1,22 +1,23 @@
 package me.metallicgoat.prizecommands;
 
-import de.marcely.bedwars.api.GameAPI;
 import de.marcely.bedwars.api.arena.Arena;
 import de.marcely.bedwars.api.arena.Team;
 import de.marcely.bedwars.api.arena.picker.ArenaPickerAPI;
+import de.marcely.bedwars.api.arena.picker.condition.ArenaConditionGroup;
 import de.marcely.bedwars.api.exception.ArenaConditionParseException;
 import de.marcely.bedwars.api.message.Message;
 import de.marcely.bedwars.tools.Helper;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import lombok.AllArgsConstructor;
 import me.metallicgoat.prizecommands.config.ConfigValue;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 
+@AllArgsConstructor
 public class Prize {
 
   public final String prizeId;
@@ -25,27 +26,8 @@ public class Prize {
   public final List<String> playerCommands;
   public final List<String> broadcast;
   public final List<String> privateMessage;
-  public final boolean enabled;
   public final List<String> supportedArenasNames;
-
-  public Prize(String prizeId,
-               String permission,
-               @Nullable List<String> commands,
-               @Nullable List<String> playerCommands,
-               @Nullable List<String> broadcast,
-               @Nullable List<String> privateMessage,
-               @Nullable List<String> supportedArenasNames,
-               boolean enabled) {
-
-    this.prizeId = prizeId;
-    this.permission = permission;
-    this.commands = commands;
-    this.playerCommands = playerCommands;
-    this.broadcast = broadcast;
-    this.privateMessage = privateMessage;
-    this.enabled = enabled;
-    this.supportedArenasNames = supportedArenasNames;
-  }
+  public final boolean enabled;
 
   public void earn(Arena arena, Player player, Map<String, String> placeholderReplacements) {
     if (Bukkit.isPrimaryThread()) {
@@ -61,10 +43,8 @@ public class Prize {
     if (!ConfigValue.enabled)
       return;
 
-    final List<Arena> supportedArenas = this.getSupportedArenas();
-
     // Only run prize for supported arenas (or all arenas if empty list)
-    if (!supportedArenas.isEmpty() && !supportedArenas.contains(arena))
+    if (!isArenaSupported(arena))
       return;
 
     if (this.permission != null
@@ -135,29 +115,24 @@ public class Prize {
     return formattedString;
   }
 
-  public List<Arena> getSupportedArenas() {
-    final List<Arena> supportedArenas = new ArrayList<>();
-
-    if (supportedArenasNames == null)
-      return new ArrayList<>();
-
+  public boolean isArenaSupported(Arena arena) {
     for (String arenaName : supportedArenasNames) {
-      final Arena arena = GameAPI.get().getArenaByName(arenaName);
-
-      if (arena != null) {
-        supportedArenas.add(arena);
-        continue;
-      }
-
       try {
-        final Collection<Arena> arenaList = ArenaPickerAPI.get().getArenasByCondition(arenaName);
-        supportedArenas.addAll(arenaList);
+        final ArenaConditionGroup group = ArenaPickerAPI.get().parseCondition(arenaName);
+
+        if (group.check(arena))
+          return true;
 
       } catch (ArenaConditionParseException ignored) {
+        // Guess it's not a condition <Shrug Emoji>
 
+        // Just by name?
+        if (arena.getName().equalsIgnoreCase(arenaName)) {
+          return true;
+        }
       }
     }
 
-    return supportedArenas;
+    return false;
   }
 }
